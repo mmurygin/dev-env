@@ -1,0 +1,7 @@
+---
+- name: setup localhost environment
+  hosts: localhost
+  gather_facts: False
+  roles:
+    - vim
+    - chrome

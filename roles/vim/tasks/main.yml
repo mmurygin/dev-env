@@ -1,0 +1,11 @@
+---
+- name: install vim
+  apt:
+    name: vim
+    state: present
+  become: yes
+
+- name: copy vim configs
+  copy:
+    src: files/.vimrc
+    dest: ~/.vimrc
