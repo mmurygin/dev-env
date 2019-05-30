@@ -5,6 +5,17 @@
   failed_when: no
   changed_when: no
 
+- name: install dependencies to build tmux
+  apt:
+    name:
+      - build-essential
+      - libevent-dev
+      - libncurses5-dev
+      - libncursesw5-dev
+    state: present
+  when: tmux_is_installed.rc != 0
+  become: true
+
 - name: Download tmux binary
   get_url:
     url: https://github.com/tmux/tmux/releases/download/{{ tmux_version }}/tmux-{{ tmux_version }}.tar.gz
