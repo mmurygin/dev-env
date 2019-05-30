@@ -1,7 +1,7 @@
 ---
-- name: check if google-chrome is installed 
+- name: check if google-chrome is installed
   shell: dpkg-query -W -f='${Status}' google-chrome-stable | grep 'install ok installed'
-  register: is_installed
+  register: chrome_is_installed
   failed_when: no
   changed_when: no
 
@@ -10,5 +10,5 @@
     deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     state: present
   become: yes
-  when: is_installed.rc != 0
+  when: chrome_is_installed.rc != 0
 
