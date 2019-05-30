@@ -4,5 +4,5 @@
   gather_facts: False
   roles:
     - vim
-    - chrome
     - tmux
+
