@@ -5,60 +5,11 @@
   failed_when: no
   changed_when: no
 
-- name: install dependencies to build tmux
-  apt:
-    name:
-      - build-essential
-      - libevent-dev
-      - libncurses5-dev
-      - libncursesw5-dev
-    state: present
-  when: tmux_is_installed.rc != 0
-  become: true
-
-- name: Download tmux binary
-  get_url:
-    url: https://github.com/tmux/tmux/releases/download/{{ tmux_version }}/tmux-{{ tmux_version }}.tar.gz
-    dest: /tmp/tmux.tar.gz
-  when: tmux_is_installed.rc != 0
-
-- name: Extract tmux
-  unarchive:
-    src: /tmp/tmux.tar.gz
-    dest: /tmp
-  when: tmux_is_installed.rc != 0
-
-- name: Configure tmux before installation
-  command: ./configure
-  args:
-    chdir: /tmp/tmux-{{ tmux_version }}
-  when: tmux_is_installed.rc != 0
-
-- name: Build tmux
-  make:
-    chdir: /tmp/tmux-{{ tmux_version }}
-  when: tmux_is_installed.rc != 0
-
-- name: Install tmux
-  shell: make install
-  args:
-    chdir: /tmp/tmux-{{ tmux_version }}
-  become: true
+- name: include install tmux tasks when tmux is not installed
+  include_tasks: install.yml
   when: tmux_is_installed.rc != 0
 
 - name: copy config file
   copy:
     src: files/.tmux.conf
     dest: ~/.tmux.conf
-
-- name: Remove downloaded archive
-  file:
-    path: /tmp/tmux.tar.gz
-    state: absent
-
-- name: Remove tmp dir
-  file:
-    path: /tmp/tmux-{{ tmux_version }}
-    state: absent
-
-
