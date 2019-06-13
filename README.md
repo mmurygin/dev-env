@@ -32,6 +32,11 @@
     git clone https://github.com/muryginm/dev-env.git
     ```
 
+1. Install dependencies
+    ```bash
+    ansible-galaxy install -r requirements.yml
+    ```
+
 1. Provision development pc
     ```bash
     {
