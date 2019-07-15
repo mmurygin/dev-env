@@ -29,7 +29,10 @@
 
 1. Clone repo
     ```bash
-    git clone https://github.com/muryginm/dev-env.git
+    {
+        git clone https://github.com/muryginm/dev-env.git
+        cd dev-env
+    }
     ```
 
 1. Install dependencies
@@ -39,8 +42,5 @@
 
 1. Provision development pc
     ```bash
-    {
-        cd dev-env
         ansible-playbook -K destop.yml
-    }
     ```
