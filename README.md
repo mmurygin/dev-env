@@ -35,11 +35,6 @@
     }
     ```
 
-1. Install dependencies
-    ```bash
-    ansible-galaxy install -r requirements.yml
-    ```
-
 1. Provision development pc
     ```bash
         ansible-playbook -K destop.yml

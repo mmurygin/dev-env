@@ -1,0 +1,7 @@
+---
+- name: Install chrome shell extension
+  apt:
+    name: chrome-gnome-shell
+    state: present
+  become: True
+

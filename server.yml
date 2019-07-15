@@ -5,5 +5,4 @@
   roles:
     - vim
     - tmux
-    - geerlingguy.docker
       
