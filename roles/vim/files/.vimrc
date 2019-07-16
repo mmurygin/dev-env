@@ -19,7 +19,7 @@ filetype indent plugin on
 
 " Enable syntax highlighting
 syntax on
-
+set clipboard=unnamedplus
 
 "------------------------------------------------------------
 " Must have options {{{1
@@ -112,3 +112,7 @@ hi cursorline term=bold cterm=bold ctermfg=Green guibg=Grey40
 
 set scrolloff=10
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
+autocmd BufWritePre * %s/\s\+$//e
+set clipboard=unnamed
+au BufNewFile,BufRead *.jinja set filetype=yaml
