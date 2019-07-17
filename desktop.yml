@@ -1,10 +1,10 @@
 ---
 - name: setup desktop environment
   hosts: localhost
-  gather_facts: True
   roles:
     - vim
     - chrome
     - tmux
     - gnome-shell
-      
+    - helm-client
+

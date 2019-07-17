@@ -1,0 +1,11 @@
+---
+- name: check if helm is installed
+  shell: which helm && helm version --client --short | grep "{{ helm_version }}"
+  register: helm_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: include install helm tasks
+  include_tasks: install.yml
+  when: helm_is_installed.rc != 0
+...

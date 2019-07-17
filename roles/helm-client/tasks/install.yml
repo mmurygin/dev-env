@@ -1,0 +1,21 @@
+---
+- name: create tmp dir
+  tempfile:
+    state: directory
+  register: install_dir
+
+- debug:
+    var: install_dir.path
+
+- name: download and unarchive helm binary
+  unarchive:
+    src: https://get.helm.sh/helm-{{ helm_version}}-linux-amd64.tar.gz
+    dest: "{{ install_dir.path }}"
+    remote_src: True
+
+- name: copy helm binary
+  copy:
+    src: "{{ install_dir.path }}/linux-amd64/helm"
+    dest: /usr/local/bin/helm
+    mode: 0755
+  become: True
