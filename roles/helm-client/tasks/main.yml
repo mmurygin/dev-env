@@ -8,4 +8,10 @@
 - name: include install helm tasks
   include_tasks: install.yml
   when: helm_is_installed.rc != 0
+
+- name: install autocomplete
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: source <(helm completion bash)
 ...
