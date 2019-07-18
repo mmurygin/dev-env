@@ -3,8 +3,10 @@
   hosts: localhost
   roles:
     - vim
-    - chrome
     - tmux
+    - go
+    - chrome
     - gnome-shell
     - helm-client
+
 
