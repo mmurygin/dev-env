@@ -1,5 +1,6 @@
 ---
 - name: setup desktop environment
+  gather_facts: False
   hosts: localhost
   roles:
     - vim
@@ -8,5 +9,6 @@
     - chrome
     - gnome-shell
     - helm-client
+    - terraform
 
 

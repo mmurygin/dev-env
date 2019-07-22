@@ -1,0 +1,15 @@
+---
+- name: check if terraform is installed
+  shell: which terraform && terraform --version | grep "Terraform v{{ terraform_version }}"
+  register: terraform_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install terraform
+  unarchive:
+    src: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: yes
+  when: terraform_is_installed.rc != 0
+  become: yes
+

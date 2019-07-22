@@ -1,8 +1,0 @@
----
-- name: setup desktop environment
-  hosts: localhost
-  gather_facts: False
-  roles:
-    - vim
-    - tmux
-      
