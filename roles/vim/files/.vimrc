@@ -113,6 +113,12 @@ hi cursorline term=bold cterm=bold ctermfg=Green guibg=Grey40
 set scrolloff=10
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
+" copy paste between terminals
 autocmd BufWritePre * %s/\s\+$//e
 set clipboard=unnamed
+
+" yaml syntax for *.jinja files
 au BufNewFile,BufRead *.jinja set filetype=yaml
+
+" toogle paste mode
+set pastetoggle=<F2>
