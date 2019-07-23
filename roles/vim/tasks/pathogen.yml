@@ -13,3 +13,8 @@
   args:
     creates: ~/.vim/autoload/pathogen.vim
 
+- name: install terraform plugin
+  git:
+    repo: 'https://github.com/hashivim/vim-terraform.git'
+    dest: ~/.vim/bundle/vim-terraform
+    update: no
