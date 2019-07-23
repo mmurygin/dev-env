@@ -1,0 +1,15 @@
+- name: create autoload directory
+  file:
+    path: ~/.vim/autoload
+    state: directory
+
+- name: create bundle directory
+  file:
+    path: ~/.vim/bundle
+    state: directory
+
+- name: download pathogen
+  command: curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  args:
+    creates: ~/.vim/autoload/pathogen.vim
+

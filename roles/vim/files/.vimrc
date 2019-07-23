@@ -122,3 +122,8 @@ au BufNewFile,BufRead *.jinja set filetype=yaml
 
 " toogle paste mode
 set pastetoggle=<F2>
+
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+

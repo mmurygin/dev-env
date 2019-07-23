@@ -9,3 +9,6 @@
   copy:
     src: files/.vimrc
     dest: ~/.vimrc
+
+- name: include pathogen plugin manager
+  include_tasks: pathogen.yml
