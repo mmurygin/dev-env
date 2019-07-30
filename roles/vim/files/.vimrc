@@ -108,7 +108,7 @@ set expandtab
 
 " My configs
 set cursorline
-hi cursorline term=bold cterm=bold ctermfg=Green guibg=Grey40
+hi cursorline term=bold cterm=bold  guibg=Grey40
 
 set scrolloff=10
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
