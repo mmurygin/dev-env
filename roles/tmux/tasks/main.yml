@@ -9,7 +9,14 @@
   include_tasks: install.yml
   when: tmux_is_installed.rc != 0
 
+- name: setup plugin manager
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+    update: no
+
 - name: copy config file
   copy:
     src: files/.tmux.conf
     dest: ~/.tmux.conf
+
