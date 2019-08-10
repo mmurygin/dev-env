@@ -10,5 +10,6 @@
     - gnome-shell
     - helm-client
     - terraform
+    - packer
 
 
