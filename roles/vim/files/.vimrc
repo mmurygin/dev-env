@@ -127,3 +127,5 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
+" autoreload on changes
+set autoread
