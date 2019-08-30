@@ -18,3 +18,15 @@
     repo: 'https://github.com/hashivim/vim-terraform.git'
     dest: ~/.vim/bundle/vim-terraform
     update: no
+
+- name: install yaml plugin
+  git:
+    repo: 'https://github.com/stephpy/vim-yaml'
+    dest: ~/.vim/bundle/vim-yaml
+    update: no
+
+- name: install jenkins plugin
+  git:
+    repo: 'https://github.com/martinda/Jenkinsfile-vim-syntax.git'
+    dest: ~/.vim/bundle/Jenkinsfile-vim-syntax
+    update: no

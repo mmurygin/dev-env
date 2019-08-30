@@ -10,5 +10,5 @@
     src: files/.vimrc
     dest: ~/.vimrc
 
-- name: include pathogen plugin manager
-  include_tasks: pathogen.yml
+- name: include plugins
+  include_tasks: plugins.yml
