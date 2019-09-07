@@ -14,6 +14,13 @@
     version: "{{ aws_version }}"
   when: aws_is_installed.rc != 0
 
+- name: install iam-authenticator
+  get_url:
+    url: https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator
+    dest: /usr/local/bin/aws-iam-authenticator
+    mode: 0755
+  become: true
+
 - name: install autocomplete
   lineinfile:
     path: ~/.bashrc
