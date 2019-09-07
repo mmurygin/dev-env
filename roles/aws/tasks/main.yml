@@ -1,0 +1,22 @@
+---
+- name: check if awscli is installed
+  shell: which aws && aws --version | grep "^aws-cli\/{{ aws_version }}"
+  register: aws_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install awscli
+  pip:
+    name: awscli
+    state: present
+    extra_args: --user
+    executable: pip3
+    version: "{{ aws_version }}"
+  when: aws_is_installed.rc != 0
+
+- name: install autocomplete
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: complete -C '/usr/local/bin/aws_completer' aws
+

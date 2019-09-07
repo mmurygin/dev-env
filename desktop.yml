@@ -12,5 +12,6 @@
     - helm-client
     - terraform
     - packer
+    - aws
 
 
