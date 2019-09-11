@@ -21,7 +21,13 @@
 
 - name: create go workspace
   file:
-    path: ~/go/src
+    path: "{{ go_path }}"
     state: directory
     mode: 0755
+
+- name: add workspace environment variable
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: export GOPATH={{ go_path }}
 ...
