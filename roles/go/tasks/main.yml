@@ -23,5 +23,5 @@
   file:
     path: ~/go/src
     state: directory
-    mode: 755
+    mode: 0755
 ...
