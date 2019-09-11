@@ -5,10 +5,17 @@
   failed_when: no
   changed_when: no
 
+- name: cleanup previously installed go
+  file:
+    path: "{{ go_install_base_dir }}/go"
+    state: absent
+  become: True
+  when: go_is_installed.rc != 0
+
 - name: download and unarchive go binary
   unarchive:
     src: https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz
-    dest: /usr/local
+    dest: "{{ go_install_base_dir }}"
     remote_src: True
   become: True
   when: go_is_installed.rc != 0
