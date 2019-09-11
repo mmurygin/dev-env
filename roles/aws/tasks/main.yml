@@ -25,5 +25,5 @@
   lineinfile:
     path: ~/.bashrc
     state: present
-    line: complete -C '/usr/local/bin/aws_completer' aws
+    line: complete -C `which aws_completer` aws
 
