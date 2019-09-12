@@ -30,3 +30,9 @@
     repo: 'https://github.com/martinda/Jenkinsfile-vim-syntax.git'
     dest: ~/.vim/bundle/Jenkinsfile-vim-syntax
     update: no
+
+- name: install go plugin
+  git:
+    repo: 'https://github.com/fatih/vim-go.git'
+    dest: ~/.vim/bundle/vim-go
+    update: no
