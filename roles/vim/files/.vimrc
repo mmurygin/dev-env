@@ -157,3 +157,7 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
+
+nnoremap <F5> :GoRun
