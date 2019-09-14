@@ -37,4 +37,10 @@
     path: ~/.bashrc
     state: present
     line: export GOPATH={{ go_path }}
+
+- name: add go binaries to PATH
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: export PATH=$PATH:{{ go_path }}/bin
 ...
