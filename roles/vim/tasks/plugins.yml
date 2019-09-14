@@ -1,38 +1,14 @@
-- name: create autoload directory
-  file:
-    path: ~/.vim/autoload
-    state: directory
-
 - name: create bundle directory
   file:
     path: ~/.vim/bundle
     state: directory
 
-- name: download pathogen
-  command: curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-  args:
-    creates: ~/.vim/autoload/pathogen.vim
-
-- name: install terraform plugin
+- name: install vundle
   git:
-    repo: 'https://github.com/hashivim/vim-terraform.git'
-    dest: ~/.vim/bundle/vim-terraform
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: ~/.vim/bundle/Vundle.vim
     update: no
 
-- name: install yaml plugin
-  git:
-    repo: 'https://github.com/stephpy/vim-yaml'
-    dest: ~/.vim/bundle/vim-yaml
-    update: no
-
-- name: install jenkins plugin
-  git:
-    repo: 'https://github.com/martinda/Jenkinsfile-vim-syntax.git'
-    dest: ~/.vim/bundle/Jenkinsfile-vim-syntax
-    update: no
-
-- name: install go plugin
-  git:
-    repo: 'https://github.com/fatih/vim-go.git'
-    dest: ~/.vim/bundle/vim-go
-    update: no
+- name: install plugins
+  command: vim +PluginInstall +qall
+  changed_when: no

@@ -1,3 +1,30 @@
+" Vundle Configs
+
+" Set 'nocompatible' to ward off unexpected things that your distro might
+" have made, as well as sanely reset options when re-sourcing .vimrc
+set nocompatible              " be iMproved, required
+
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'stephpy/vim-yaml'
+Plugin 'hashivim/vim-terraform'
+Plugin 'martinda/Jenkinsfile-vim-syntax'
+Plugin 'fatih/vim-go'
+Plugin 'SirVer/ultisnips'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 " URL: http://vim.wikia.com/wiki/Example_vimrc
 " Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
 
@@ -7,19 +34,8 @@
 " These options and commands enable some very useful features in Vim, that
 " no user should have to live without.
 
-" Set 'nocompatible' to ward off unexpected things that your distro might
-" have made, as well as sanely reset options when re-sourcing .vimrc
-
-set nocompatible
-
-" Attempt to determine the type of a file based on its name and possibly its
-" contents. Use this to allow intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
-filetype indent plugin on
-
 " Enable syntax highlighting
 syntax on
-set clipboard=unnamedplus
 
 "------------------------------------------------------------
 " Must have options {{{1
@@ -115,17 +131,13 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 
 " copy paste between terminals
 autocmd BufWritePre * %s/\s\+$//e
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " yaml syntax for *.jinja files
 au BufNewFile,BufRead *.jinja set filetype=yaml
 
 " toogle paste mode
 set pastetoggle=<F2>
-
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
 
 " autoreload on changes
 set autoread
