@@ -3,7 +3,7 @@
   gather_facts: False
   hosts: localhost
   roles:
-    - pip3
+    - dev
     - vim
     - tmux
     - go

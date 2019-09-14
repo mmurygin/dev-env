@@ -1,0 +1,11 @@
+- name: install development dependencies
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - build-essential
+      - cmake
+      - python3-dev
+      - python3-pip
+  become: True

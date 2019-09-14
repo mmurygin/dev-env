@@ -1,29 +1,17 @@
-" Vundle Configs
+" Plugins configs
 
-" Set 'nocompatible' to ward off unexpected things that your distro might
-" have made, as well as sanely reset options when re-sourcing .vimrc
-set nocompatible              " be iMproved, required
+call plug#begin()
 
-filetype off                  " required
+" Plug 'tpope/vim-sensible'
+Plug 'stephpy/vim-yaml'
+Plug 'hashivim/vim-terraform'
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'SirVer/ultisnips'
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+Plug 'ervandew/supertab'
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'stephpy/vim-yaml'
-Plugin 'hashivim/vim-terraform'
-Plugin 'martinda/Jenkinsfile-vim-syntax'
-Plugin 'fatih/vim-go'
-Plugin 'SirVer/ultisnips'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()
 
 " URL: http://vim.wikia.com/wiki/Example_vimrc
 " Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
@@ -34,7 +22,12 @@ filetype plugin indent on    " required
 " These options and commands enable some very useful features in Vim, that
 " no user should have to live without.
 
+" Set 'nocompatible' to ward off unexpected things that your distro might
+" have made, as well as sanely reset options when re-sourcing .vimrc
+set nocompatible
+
 " Enable syntax highlighting
+filetype plugin indent on
 syntax on
 
 "------------------------------------------------------------
@@ -146,4 +139,21 @@ set autoread
 autocmd Filetype go setlocal tabstop=4
 autocmd Filetype go setlocal shiftwidth=4
 autocmd Filetype go setlocal softtabstop=4
+autocmd Filetype go setlocal noexpandtab
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
+" go advanced syntax highligh
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
