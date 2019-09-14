@@ -129,3 +129,9 @@ filetype plugin indent on
 
 " autoreload on changes
 set autoread
+
+" go configs
+autocmd Filetype go setlocal tabstop=4
+autocmd Filetype go setlocal shiftwidth=4
+autocmd Filetype go setlocal softtabstop=4
+
