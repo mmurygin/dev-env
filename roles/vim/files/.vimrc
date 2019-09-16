@@ -10,6 +10,7 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'SirVer/ultisnips'
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 Plug 'ervandew/supertab'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 call plug#end()
 
@@ -136,11 +137,7 @@ set pastetoggle=<F2>
 set autoread
 
 " go configs
-autocmd Filetype go setlocal tabstop=4
-autocmd Filetype go setlocal shiftwidth=4
-autocmd Filetype go setlocal softtabstop=4
-autocmd Filetype go setlocal noexpandtab
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+autocmd Filetype go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " go advanced syntax highligh
 let g:go_highlight_types = 1
