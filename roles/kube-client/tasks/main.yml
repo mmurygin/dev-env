@@ -26,3 +26,4 @@
     line: "{{ item }}"
   loop:
     - "alias k=kubectl"
+    - 'alias bb="kubectl run busybox --image=busybox:1.28 --rm -it --restart Never --command --"'
