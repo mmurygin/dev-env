@@ -1,0 +1,26 @@
+---
+- name: download source code
+  git:
+    repo: https://github.com/ahmetb/kubectx.git
+    dest: ~/.kubectx
+    depth: 1
+    update: no
+
+- name: get autocomplete path
+  command: pkg-config --variable=completionsdir bash-completion
+  register: autocomplete_path
+  failed_when: no
+  changed_when: no
+
+- name: setup autocomplete for kubens
+  file:
+    src: '{{ lookup("env", "HOME") }}/.kubectx/completion/{{ item }}.bash'
+    dest: '{{ autocomplete_path.stdout }}/{{ item }}'
+    state: link
+  loop:
+    - kubens
+    - kubectx
+  become: True
+
+
+
