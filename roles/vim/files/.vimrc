@@ -11,6 +11,7 @@ Plug 'SirVer/ultisnips'
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 Plug 'ervandew/supertab'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'honza/vim-snippets'
 
 call plug#end()
 

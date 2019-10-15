@@ -9,6 +9,7 @@
     - go
     - chrome
     - gnome-shell
+    - kube-client
     - helm-client
     - terraform
     - packer

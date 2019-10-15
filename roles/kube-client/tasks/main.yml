@@ -1,0 +1,28 @@
+---
+- name: check if kubectl is installed
+  shell: which kubectl && kubectl version --client --short | grep -F "{{ kubectl_version }}"
+  register: kubectl_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install kubectl
+  get_url:
+    url: "https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
+    mode: 0755
+    dest: /usr/local/bin/kubectl
+  become: True
+  when: kubectl_is_installed.rc != 0
+
+- name: install autocomplete
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: source <(kubectl completion bash)
+
+- name: add snippets
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: "{{ item }}"
+  loop:
+    - "alias k=kubectl"

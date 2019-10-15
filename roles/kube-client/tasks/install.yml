@@ -4,7 +4,7 @@
     state: directory
   register: install_dir
 
-- name: download and unarchive helm binary
+- name: download and unarchive kubectl binary
   unarchive:
     src: https://get.helm.sh/helm-{{ helm_version}}-linux-amd64.tar.gz
     dest: "{{ install_dir.path }}"
