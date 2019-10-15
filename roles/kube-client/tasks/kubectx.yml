@@ -12,7 +12,7 @@
   failed_when: no
   changed_when: no
 
-- name: setup autocomplete for kubens
+- name: setup autocomplete for kubens and kubectx
   file:
     src: '{{ lookup("env", "HOME") }}/.kubectx/completion/{{ item }}.bash'
     dest: '{{ autocomplete_path.stdout }}/{{ item }}'
@@ -22,5 +22,9 @@
     - kubectx
   become: True
 
-
+- name: add kubectx and kubens to system PATH
+  lineinfile:
+    path: ~/.bashrc
+    line: 'export PATH=$PATH:~/.kubectx'
+    state: present
 
