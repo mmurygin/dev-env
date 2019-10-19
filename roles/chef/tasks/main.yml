@@ -1,0 +1,14 @@
+---
+- name: check if chef workstation is installed
+  shell: 'which chef && chef --version | grep -F "Chef Workstation version: {{ chef_version }}"'
+  register: chef_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install chef workstation
+  apt:
+    deb: https://packages.chef.io/files/stable/chef-workstation/{{ chef_version }}/ubuntu/18.04/chef-workstation_{{ chef_version }}-1_amd64.deb
+    state: present
+  become: yes
+  when: chef_is_installed.rc != 0
+

@@ -1,0 +1,10 @@
+---
+- name: check if go is installed
+  shell: which fzf
+  register: fzf_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install fzf
+  command: go get -u github.com/junegunn/fzf
+  when: fzf_is_installed.rc != 0

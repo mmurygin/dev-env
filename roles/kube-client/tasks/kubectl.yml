@@ -19,7 +19,7 @@
     state: present
     line: source <(kubectl completion bash)
 
-- name: add snippets
+- name: add kubectl snippets
   lineinfile:
     path: ~/.bashrc
     state: present
