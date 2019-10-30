@@ -159,3 +159,4 @@ set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
 
 nnoremap <F5> :GoRun
+autocmd BufRead *.py setlocal colorcolumn=0
