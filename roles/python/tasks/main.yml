@@ -1,0 +1,16 @@
+---
+- name: add python repository
+  apt_repository:
+    repo: ppa:deadsnakes/ppa
+  become: True
+
+- name: install python {{ python_version }}
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - python{{ python_version }}
+      - python{{ python_version }}-venv
+      - python{{ python_version }}-dev
+  become: True

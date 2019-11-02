@@ -4,10 +4,11 @@
   hosts: localhost
   roles:
     - dev
-    - go
     - vim
     - tmux
     - fzf
+    - python
+    - go
     - chrome
     - gnome-shell
     - kube-client
@@ -16,5 +17,3 @@
     - packer
     - aws
     - chef
-
-
