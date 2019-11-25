@@ -1,5 +1,5 @@
 ---
-- name: check if go is installed
+- name: check if fzf is installed
   shell: which fzf
   register: fzf_is_installed
   failed_when: no

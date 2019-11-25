@@ -6,9 +6,9 @@
     - dev
     - vim
     - tmux
+    - go
     - fzf
     - python
-    - go
     - chrome
     - gnome-shell
     - kube-client
