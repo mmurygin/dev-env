@@ -1,0 +1,1 @@
+- [ ] Executable is not available in path immideately after installation
