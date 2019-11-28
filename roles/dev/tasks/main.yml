@@ -9,4 +9,6 @@
       - tree
       - pkg-config
       - python3-pip
+      - clang
+      - cppcheck
   become: True
