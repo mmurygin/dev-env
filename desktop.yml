@@ -8,7 +8,7 @@
     - tmux
     - go
     - fzf
-    - python
+#    - python
     - chrome
     - gnome-shell
     - kube-client
