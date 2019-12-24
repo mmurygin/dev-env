@@ -12,6 +12,7 @@ Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 Plug 'ervandew/supertab'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'honza/vim-snippets'
+Plug 'myhere/vim-nodejs-complete'
 
 call plug#end()
 
@@ -111,9 +112,7 @@ set mouse=a
 
 " Indentation settings for using 4 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=2
-set softtabstop=2
-set expandtab
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 "------------------------------------------------------------
 
@@ -130,15 +129,13 @@ set clipboard=unnamedplus
 
 " yaml syntax for *.jinja files
 au BufNewFile,BufRead *.jinja set filetype=yaml
+autocmd Filetype go setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " toogle paste mode
 set pastetoggle=<F2>
 
 " autoreload on changes
 set autoread
-
-" go configs
-autocmd Filetype go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " go advanced syntax highligh
 let g:go_highlight_types = 1
