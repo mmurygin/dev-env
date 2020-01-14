@@ -1,0 +1,8 @@
+- name: copy cron sript for updating packages
+  copy:
+    src: files/update-packages
+    dest: /etc/cron.daily/update-packages
+    owner: root
+    group: root
+    mode: 0744
+  become: True

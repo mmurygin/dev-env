@@ -4,11 +4,11 @@
   hosts: localhost
   roles:
     - dev
+    - updated-packages
     - vim
     - tmux
     - go
     - fzf
-#    - python
     - chrome
     - gnome-shell
     - kube-client
