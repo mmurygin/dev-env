@@ -5,6 +5,12 @@
     state: present
   become: yes
 
+- name: install vim-gtk for copy between terminals
+  apt:
+    name: vim-gtk
+    state: present
+  become: yes
+
 - name: install plugins
   include_tasks: plugins.yml
 
