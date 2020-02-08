@@ -12,6 +12,7 @@
     - chrome
     - gnome-shell
     - kube-client
+    - k9s
     - helm-client
     - terraform
     - packer
