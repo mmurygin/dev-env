@@ -8,4 +8,7 @@
   lineinfile:
     path: ~/.bashrc
     state: present
-    line: "alias v=xclip -o"
+    line: "{{ item }}"
+  loop:
+    - 'alias c=xclip'
+    - 'alias "v=xclip -o"'
