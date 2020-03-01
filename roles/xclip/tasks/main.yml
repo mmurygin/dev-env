@@ -1,0 +1,11 @@
+- name: install xclip dependencies
+  apt:
+    name: xclip
+    state: present
+  become: True
+
+- name: add paste snippet
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: "alias v=xclip -o"
