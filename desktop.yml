@@ -15,6 +15,7 @@
     - kube-client
     - k9s
     - helm-client
+    - helmfile
     - terraform
     - packer
     - aws
