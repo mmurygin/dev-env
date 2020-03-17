@@ -13,6 +13,8 @@ Plug 'ervandew/supertab'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'honza/vim-snippets'
 Plug 'myhere/vim-nodejs-complete'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'rodjek/vim-puppet'
 
 call plug#end()
 
