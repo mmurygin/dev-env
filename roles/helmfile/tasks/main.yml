@@ -1,5 +1,5 @@
 ---
-- name: check if packer is installed
+- name: check if helmfile is installed
   shell: which helmfile && helmfile --version | grep "^{{helmfile_version}}$"
   register: helmfile_is_installed
   failed_when: no
@@ -12,3 +12,13 @@
     mode: 0755
   become: yes
   when: helmfile_is_installed.rc != 0
+
+- name: check if helm diff plugin is installed
+  shell: helm plugin list | grep diff
+  register: helm_diff_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install helmfile
+  command: helm plugin install https://github.com/databus23/helm-diff --version master
+  when: helm_diff_is_installed.rc != 0
