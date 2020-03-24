@@ -131,7 +131,9 @@ set clipboard=unnamedplus
 
 " yaml syntax for *.jinja files
 au BufNewFile,BufRead *.jinja set filetype=yaml
-autocmd Filetype go setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
+" go html templates
+au BufNewFile,BufRead *.tmpl setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " toogle paste mode
 set pastetoggle=<F2>
