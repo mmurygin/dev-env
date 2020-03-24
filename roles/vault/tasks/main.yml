@@ -1,0 +1,18 @@
+---
+- name: check if vault is installed
+  shell: which vault && vault --version | grep "v{{ vault_version }}"
+  register: vault_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install vault
+  unarchive:
+    src: https://releases.hashicorp.com/vault/{{ vault_version }}/vault_{{ vault_version }}_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: yes
+  when: vault_is_installed.rc != 0
+  become: yes
+
+- name: install vault
+  command: vault -autocomplete-install
+  when: vault_is_installed.rc != 0

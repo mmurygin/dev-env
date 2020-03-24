@@ -17,6 +17,7 @@
     - helm-client
     - helmfile
     - terraform
+    - vault
     - packer
     - aws
     - chef
