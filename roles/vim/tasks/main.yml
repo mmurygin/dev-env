@@ -5,10 +5,17 @@
     state: present
   become: yes
 
-- name: install plugins
-  include_tasks: plugins.yml
+- name: install vim-gtk for copy between terminals
+  apt:
+    name: vim-gtk
+    state: present
+  become: yes
 
 - name: copy vim configs
   copy:
     src: files/.vimrc
     dest: ~/.vimrc
+
+- name: install plugins
+  include_tasks: plugins.yml
+

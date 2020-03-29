@@ -4,16 +4,20 @@
   hosts: localhost
   roles:
     - dev
+    - xclip
+    - cron-update-packages
     - vim
     - tmux
     - go
     - fzf
-#    - python
     - chrome
     - gnome-shell
     - kube-client
+    - k9s
     - helm-client
+    - helmfile
     - terraform
+    - vault
     - packer
     - aws
     - chef

@@ -28,3 +28,13 @@
     line: 'export PATH=$PATH:~/.kubectx'
     state: present
 
+- name: setup alias for kubens and kubectx
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: "{{ item }}"
+  loop:
+    - "alias kx=kubectx"
+    - "alias kn=kubens"
+
+
