@@ -25,10 +25,3 @@
     dest: /etc/bash_completion.d/VBoxManage
     mode: 0644
   become: yes
-
-- name: create simlink for easy-access
-  file:
-    src: /usr/bin/VBoxManage
-    dest: /usr/local/bin/vbox
-    state: link
-  become: yes
