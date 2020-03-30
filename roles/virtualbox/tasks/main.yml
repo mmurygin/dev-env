@@ -5,9 +5,16 @@
   failed_when: no
   changed_when: no
 
+- name: uninstall old version
+  apt:
+    name: virtualbox*
+    state: absent
+  when: vbox_is_installed.rc != 0
+  become: yes
+
 - name: install virtualbox
   apt:
-    deb: {{ vbox_download_link }}
+    deb: "{{ vbox_download_link }}"
     state: present
   become: yes
   when: vbox_is_installed.rc != 0
