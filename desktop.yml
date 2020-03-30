@@ -3,21 +3,35 @@
   gather_facts: False
   hosts: localhost
   roles:
+    # UI
+    - chrome
+    - gnome-shell
+
+    # common dev
     - dev
     - xclip
     - cron-update-packages
     - vim
     - tmux
-    - go
     - fzf
-    - chrome
-    - gnome-shell
+
+    # languages
+    - go
+
+    # virtualization
+    - virtualbox
+
+    # kubernetes
     - kube-client
     - k9s
     - helm-client
     - helmfile
+
+    # devops
     - terraform
     - vault
     - packer
-    - aws
     - chef
+
+    # clouds
+    - aws

@@ -1,0 +1,27 @@
+---
+- name: check if virtualbox is installed
+  shell: 'which VBoxManage && VBoxManage --version | grep -F "{{ vbox_version }}"'
+  register: vbox_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install virtualbox
+  apt:
+    deb: {{ vbox_download_link }}
+    state: present
+  become: yes
+  when: vbox_is_installed.rc != 0
+
+- name: setup autocompletion
+  get_url:
+    url: https://raw.githubusercontent.com/gryf/vboxmanage-bash-completion/master/VBoxManage
+    dest: /etc/bash_completion.d/VBoxManage
+    mode: 0644
+  become: yes
+
+- name: create simlink for easy-access
+  file:
+    src: /usr/bin/VBoxManage
+    dest: /usr/local/bin/vbox
+    state: link
+  become: yes
