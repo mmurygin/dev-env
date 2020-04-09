@@ -43,4 +43,11 @@
     path: ~/.bashrc
     state: present
     line: export PATH=$PATH:{{ go_path }}/bin
+
+- name: setup bash completion
+  get_url:
+    url: https://raw.githubusercontent.com/skelterjohn/go-pkg-complete/master/go-pkg-complete.bash.inc
+    dest: /etc/bash_completion.d/go
+    mode: 0644
+  become: True
 ...
