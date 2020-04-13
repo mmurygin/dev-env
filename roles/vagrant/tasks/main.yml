@@ -1,0 +1,21 @@
+---
+- name: check if vagrant v{{ vagrant_version }} is installed
+  shell: which vagrant && vagrant --version | grep "Vagrant {{ vagrant_version }}"
+  register: vagrant_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install vagrant v{{ vagrant_version }}
+  apt:
+    deb: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb
+    state: present
+    autoremove: yes
+  when: vagrant_is_installed.rc != 0
+  become: yes
+
+- name: setup bashcompletion
+  get_url:
+    url: https://raw.githubusercontent.com/hashicorp/vagrant/master/contrib/bash/completion.sh
+    dest: /etc/bash_completion.d/vagrant
+    mode: 0644
+  become: yes

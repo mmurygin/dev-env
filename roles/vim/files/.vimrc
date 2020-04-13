@@ -134,6 +134,7 @@ au BufNewFile,BufRead *.jinja set filetype=yaml
 
 " go html templates
 au BufNewFile,BufRead *.tmpl setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+au BufNewFile,BufRead *.json setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " toogle paste mode
 set pastetoggle=<F2>

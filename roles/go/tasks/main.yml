@@ -1,5 +1,5 @@
 ---
-- name: check if go is installed
+- name: check if go {{ go_version }} is installed
   shell: which go && go version | grep {{ go_version }}
   register: go_is_installed
   failed_when: no
@@ -12,7 +12,7 @@
   become: True
   when: go_is_installed.rc != 0
 
-- name: download and unarchive go binary
+- name: install go {{ go_version }}
   unarchive:
     src: https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz
     dest: "{{ go_install_base_dir }}"
