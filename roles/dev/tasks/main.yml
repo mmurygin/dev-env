@@ -12,4 +12,5 @@
       - python3-pip
       - clang
       - cppcheck
+      - curl
   become: True
