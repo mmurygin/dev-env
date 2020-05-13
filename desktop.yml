@@ -13,26 +13,28 @@
     - cron-update-packages
     - vim
     - tmux
-    - fzf
 
     # languages
     - go
 
+    # autocomplete (required golang)
+    - fzf
+
     # virtualization
-    - virtualbox
+    # - virtualbox
 
     # kubernetes
-    - kube-client
-    - k9s
-    - helm-client
-    - helmfile
+    # - kube-client
+    # - k9s
+    # - helm-client
+    # - helmfile
 
     # devops
     - vagrant
     - terraform
     - vault
     - packer
-    - chef
+    # - chef
 
     # clouds
     - aws
