@@ -15,6 +15,7 @@ Plug 'honza/vim-snippets'
 Plug 'myhere/vim-nodejs-complete'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'rodjek/vim-puppet'
+Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 
 call plug#end()
 

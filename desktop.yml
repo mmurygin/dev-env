@@ -25,7 +25,7 @@
     # - virtualbox
 
     # kubernetes
-    # - kube-client
+    - kube-client
     # - k9s
     # - helm-client
     # - helmfile

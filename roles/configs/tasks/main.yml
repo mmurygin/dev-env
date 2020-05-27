@@ -10,9 +10,9 @@
         br = branch
         st = status
 
-- name: setup branch name
-  blockinfile:
-    path: ~/.bashrc
-    marker: "# {mark} ANSIBLE MANAGED BLOCK"
-    block: "{{ lookup('file', './files/branch-name.sh') }}"
+# - name: setup branch name
+#   blockinfile:
+#     path: ~/.bashrc
+#     marker: "# {mark} ANSIBLE MANAGED BLOCK"
+#     block: "{{ lookup('file', './files/branch-name.sh') }}"
 ...
