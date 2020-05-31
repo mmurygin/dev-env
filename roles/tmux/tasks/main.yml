@@ -20,3 +20,6 @@
     src: files/.tmux.conf
     dest: ~/.tmux.conf
 
+- name: install tnux plugins
+  command: ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+  changed_when: no
