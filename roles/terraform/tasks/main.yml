@@ -13,3 +13,9 @@
   when: terraform_is_installed.rc != 0
   become: yes
 
+- name: install autocomplete
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: complete -C /usr/local/bin/terraform terraform
+
