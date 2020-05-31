@@ -5,7 +5,7 @@
   failed_when: no
   changed_when: no
 
-- name: install vault
+- name: install vault {{ vault_version }}
   unarchive:
     src: https://releases.hashicorp.com/vault/{{ vault_version }}/vault_{{ vault_version }}_linux_amd64.zip
     dest: /usr/local/bin
@@ -13,6 +13,6 @@
   when: vault_is_installed.rc != 0
   become: yes
 
-- name: install vault
+- name: install vault autocomplete
   command: vault -autocomplete-install
   when: vault_is_installed.rc != 0

@@ -5,7 +5,7 @@
   failed_when: no
   changed_when: no
 
-- name: install terraform
+- name: install terraform {{ terraform_version }}
   unarchive:
     src: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
     dest: /usr/local/bin

@@ -5,7 +5,7 @@
   failed_when: no
   changed_when: no
 
-- name: install packer
+- name: install packer {{ packer_version }}
   unarchive:
     src: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip
     dest: /usr/local/bin
