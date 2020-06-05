@@ -2,24 +2,37 @@
 
 call plug#begin()
 
-" Plug 'tpope/vim-sensible'
-Plug 'stephpy/vim-yaml'
-
-" terraform plugins
-Plug 'hashivim/vim-terraform'
-" Plug 'vim-syntastic/syntastic' " for some reason do not work with python
-" plugin
-Plug 'juliosueiras/vim-terraform-completion'
-
-Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+" Usefull utils
 Plug 'SirVer/ultisnips'
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 Plug 'ervandew/supertab'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'honza/vim-snippets'
-Plug 'myhere/vim-nodejs-complete'
+" Plug 'tpope/vim-sensible'
+
+
+Plug 'mhartington/oceanic-next'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+
+Plug 'vim-syntastic/syntastic' " for some reason do not work with python
+
+" Terraform plugins
+Plug 'hashivim/vim-terraform'
+Plug 'juliosueiras/vim-terraform-completion'
+
+" Python
+Plug 'davidhalter/jedi-vim'
+" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'nvie/vim-flake8'
+Plug 'preservim/nerdtree'
+
+" Yaml
+Plug 'stephpy/vim-yaml'
+
+" Other
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'myhere/vim-nodejs-complete'
 Plug 'rodjek/vim-puppet'
 Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 
@@ -41,6 +54,11 @@ set nocompatible
 " Enable syntax highlighting
 filetype plugin indent on
 syntax on
+
+" encoding
+set encoding=utf-8
+let mapleader = ','
+
 
 "------------------------------------------------------------
 " Must have options {{{1
@@ -149,11 +167,13 @@ set pastetoggle=<F2>
 " autoreload on changes
 set autoread
 
-" go advanced syntax highligh
+" golang configs
+" advanced syntax highligh
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
+nnoremap <F5> :GoRun
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -167,18 +187,35 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
 
-nnoremap <F5> :GoRun
-autocmd BufRead *.py setlocal colorcolumn=0
+" >>>>>>>> Python
 
-" ------- Start vim-terraform-configs
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" virtualenv support
+" python3 << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"   project_base_dir = os.environ['VIRTUAL_ENV']
+"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"   execfile(activate_this, dict(__file__=activate_this))
+" EOF
+
+" <<<<<<<< Python
+
+
+" >>>>>>>>> Syntaic-syntax check config start
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_python_checkers = ['python3']
+" <<<<<<<<< Syntaic-syntax check config end
+
+
+" >>>>>>>>>> Start vim-terraform-configs
 
 " (Optional)Remove Info(Preview) window
 set completeopt-=preview
@@ -195,4 +232,11 @@ let g:terraform_completion_keys = 1
 
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
 let g:terraform_registry_module_completion = 0
-" ----- END vim-terraform configs
+
+" <<<<<<<<<< vim-terraform configs
+
+" colorscheme OceanicNext
+" colorscheme onehalfdark
+" let g:airline_theme='onehalfdark'
+nnoremap p p`[v`]=
+nnoremap P P`[v`]=
