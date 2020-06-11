@@ -156,6 +156,7 @@ set clipboard=unnamedplus
 
 " yaml syntax for *.jinja files
 au BufNewFile,BufRead *.jinja set filetype=yaml
+au BufNewFile,BufRead *.yml set filetype=yaml
 
 " go html templates
 au BufNewFile,BufRead *.tmpl setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
@@ -215,6 +216,11 @@ let g:syntastic_python_checkers = ['python3']
 " <<<<<<<<< Syntaic-syntax check config end
 
 
+" >>>>>>>>>>>> Shell
+let g:syntastic_sh_shellcheck_args="-e SC1091"
+" <<<<<<<<<<<< Shell
+
+
 " >>>>>>>>>> Start vim-terraform-configs
 
 " (Optional)Remove Info(Preview) window
@@ -238,5 +244,7 @@ let g:terraform_registry_module_completion = 0
 " colorscheme OceanicNext
 " colorscheme onehalfdark
 " let g:airline_theme='onehalfdark'
-nnoremap p p`[v`]=
-nnoremap P P`[v`]=
+" nnoremap p p`[v`]=
+" nnoremap P P`[v`]=
+
+autocmd BufWritePre *.tf :TerraformFmt
