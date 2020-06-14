@@ -12,14 +12,17 @@
     - dev
     - xclip
     - cron-update-packages
-    - vim
-    - tmux
 
     # languages
     - go
+    - python3
 
     # autocomplete (required golang)
     - fzf
+
+    # editors
+    - vim
+    - tmux
 
     # virtualization
     # - virtualbox
