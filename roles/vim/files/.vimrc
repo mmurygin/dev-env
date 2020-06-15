@@ -3,17 +3,17 @@
 call plug#begin()
 
 " Usefull utils
-Plug 'SirVer/ultisnips'
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --go-completer' }
 Plug 'ervandew/supertab'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-" Plug 'tpope/vim-sensible'
 
-
+" Styles
 Plug 'mhartington/oceanic-next'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+" Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
-Plug 'vim-syntastic/syntastic' " for some reason do not work with python
+" Syntax check
+Plug 'vim-syntastic/syntastic'
 
 " Terraform plugins
 Plug 'hashivim/vim-terraform'
@@ -24,53 +24,49 @@ Plug 'davidhalter/jedi-vim'
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'nvie/vim-flake8'
-Plug 'preservim/nerdtree'
 
 " Yaml
 Plug 'stephpy/vim-yaml'
 
+" Go
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+
 " Other
 Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'myhere/vim-nodejs-complete'
 Plug 'rodjek/vim-puppet'
 Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 
 call plug#end()
 
-" URL: http://vim.wikia.com/wiki/Example_vimrc
-" Authors: http://vim.wikia.com/wiki/Vim_on_Freenode
-
 "------------------------------------------------------------
-" Features {{{1
-"
-" These options and commands enable some very useful features in Vim, that
-" no user should have to live without.
+" From Fatih-go
+set nocompatible                " Enables us Vim specific features
+filetype off                    " Reset filetype detection first ...
+filetype plugin indent on       " ... and enable filetype detection
+set ttyfast                     " Indicate fast terminal conn for faster redraw
+set ttymouse=xterm2             " Indicate terminal type for mouse codes
+set ttyscroll=3                 " Speedup scrolling
+" set laststatus=2                " Show status line always
+set encoding=utf-8              " Set default encoding to UTF-8
+set autoread                    " Automatically read changed files
+set autoindent                  " Enabile Autoindent
 
-" Set 'nocompatible' to ward off unexpected things that your distro might
-" have made, as well as sanely reset options when re-sourcing .vimrc
-set nocompatible
+" Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start  " Makes backspace key more powerful.
 
-" Enable syntax highlighting
-filetype plugin indent on
-syntax on
+set incsearch                   " Shows the match while typing
+set hlsearch                    " Highlight found searches
+set noerrorbells                " No beeps
+set number                      " Show line numbers
+set showcmd                     " Show me what I'm typing
+set noswapfile                  " Don't use swapfile
+set nobackup                    " Don't create annoying backup files
+set splitright                  " Vertical windows should be split to right
+set splitbelow                  " Horizontal windows should split to bottom
+set autowrite                   " Automatically save before :next, :make etc.
 
-" encoding
-set encoding=utf-8
-let mapleader = ','
-
-
-"------------------------------------------------------------
-" Must have options {{{1
-"
-" These are highly recommended options.
-
-" Vim with default settings does not allow easy switching between multiple files
-" in the same editor window. Users can use multiple split windows or multiple
-" tab pages to edit multiple files, but it is still best to enable an option to
-" allow easier switching between files.
-"
-" One such option is the 'hidden' option, which allows you to re-use the same
+" 'hidden' option - allows you to re-use the same
 " window and switch from an unsaved buffer without saving it first. Also allows
 " you to keep an undo history for multiple files when re-using the same window
 " in this way. Note that using persistent undo also lets you undo in multiple
@@ -78,72 +74,62 @@ let mapleader = ','
 " for keeping undo history after closing Vim entirely. Vim will complain if you
 " try to quit without saving, and swap files will keep you safe if your computer
 " crashes.
-set hidden
+set hidden                      " Buffer should still exist if window is closed
 
-" Note that not everyone likes working this way (with the hidden option).
-" Alternatives include using tabs or split windows instead of re-using the same
-" window as mentioned above, and/or either of the following options:
-" set confirm
-" set autowriteall
+set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
+" set noshowmatch                 " Do not show matching brackets by flickering
+" set noshowmode                  " We show the mode with airline or lightline
+set ignorecase                  " Search case insensitive...
+set smartcase                   " ... but not it begins with upper case
+set completeopt=menu,menuone    " Show popup menu, even if there is one entry
+set pumheight=10                " Completion window max size
+set nocursorcolumn              " Do not highlight column (speeds up highlighting)
+set nocursorline                " Do not highlight cursor (speeds up highlighting)
+set lazyredraw                  " Wait to redraw
 
-" Better command-line completion
-set wildmenu
+" Enable to copy to clipboard for operations like yank, delete, change and put
+" http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
+if has('unnamedplus')
+  set clipboard^=unnamed
+  set clipboard^=unnamedplus
+endif
 
-" Show partial commands in the last line of the screen
-set showcmd
+" This enables us to undo files even if you exit Vim.
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.config/vim/tmp/undo//
+endif
 
 "------------------------------------------------------------
-" Usability options {{{1
-"
-" These are options that users frequently set in their .vimrc. Some of them
-" change Vim's behaviour in ways which deviate from the true Vi way, but
-" which are considered to add usability. Which, if any, of these options to
-" use is very much a personal preference, but they are harmless.
 
-" Use case insensitive search, except when using capital letters
-set ignorecase
-set smartcase
-set number
-
-" Allow backspacing over autoindent, line breaks and start of insert action
-set backspace=indent,eol,start
+"------------------------------------------------------------
+" My Configs
+set autowriteall
+set wildmenu
 
 " Stop certain movements from always going to the first character of a line.
 " While this behaviour deviates from that of Vi, it does what most users
 " coming from other editors would expect.
 set nostartofline
 
-" Display the cursor position on the last line of the screen or in the status
-" line of a window
-set ruler
 
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
 set confirm
 
-" Use visual bell instead of beeping when doing something wrong
-set visualbell
-
-" And reset the terminal code for the visual bell. If visualbell is set, and
-" this line is also included, vim will neither flash nor beep. If visualbell
-" is unset, this does nothing.
-set t_vb=
+" Display the cursor position on the last line of the screen or in the status
+" line of a window
+set ruler
 
 " Enable use of the mouse for all modes
 set mouse=a
 
-"------------------------------------------------------------
-" Indentation options {{{1
-"
-" Indentation settings according to personal preference.
+let mapleader = ','
 
 " Indentation settings for using 4 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 
-"------------------------------------------------------------
-
-" My configs
 set cursorline
 hi cursorline term=bold cterm=bold  guibg=Grey40
 
@@ -152,7 +138,6 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE gui
 
 " copy paste between terminals
 autocmd BufWritePre * %s/\s\+$//e
-set clipboard=unnamedplus
 
 " yaml syntax for *.jinja files
 au BufNewFile,BufRead *.jinja set filetype=yaml
@@ -204,9 +189,9 @@ let g:ycm_add_preview_to_completeopt = 0
 
 
 " >>>>>>>>> Syntaic-syntax check config start
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -238,13 +223,12 @@ let g:terraform_completion_keys = 1
 
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
 let g:terraform_registry_module_completion = 0
-
+autocmd BufWritePre *.tf :TerraformFmt
 " <<<<<<<<<< vim-terraform configs
 
-" colorscheme OceanicNext
+colorscheme OceanicNext
 " colorscheme onehalfdark
 " let g:airline_theme='onehalfdark'
 " nnoremap p p`[v`]=
 " nnoremap P P`[v`]=
 
-autocmd BufWritePre *.tf :TerraformFmt
