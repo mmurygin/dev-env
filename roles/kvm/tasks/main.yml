@@ -1,0 +1,18 @@
+- name: install qemu-kvm dependencies
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - qemu-kvm
+      - libvirt-bin
+      - bridge-utils
+      - virt-manager
+  become: True
+
+- name: adding existing user "{{ ansible_user_id }}" to group "libvirt"
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: libvirt,kvm
+    append: yes
+  become: True

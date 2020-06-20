@@ -1,6 +1,6 @@
 ---
 - name: setup desktop environment
-  gather_facts: False
+  gather_facts: True
   hosts: localhost
   roles:
     # UI
@@ -25,7 +25,9 @@
     - tmux
 
     # virtualization
+    - kvm
     # - virtualbox
+
 
     # kubernetes
     - kube-client
