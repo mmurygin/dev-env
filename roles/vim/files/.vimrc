@@ -187,6 +187,9 @@ let g:ycm_add_preview_to_completeopt = 0
 
 " <<<<<<<< Python
 
+" >>>>>>>>> YouCompleteMe
+let g:ycm_show_diagnostics_ui = 0
+" <<<<<<<< Python
 
 " >>>>>>>>> Syntaic-syntax check config start
 set statusline+=%#warningmsg#
