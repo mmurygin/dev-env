@@ -30,6 +30,8 @@ Plug 'stephpy/vim-yaml'
 
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Other
 Plug 'martinda/Jenkinsfile-vim-syntax'
@@ -62,8 +64,8 @@ set number                      " Show line numbers
 set showcmd                     " Show me what I'm typing
 set noswapfile                  " Don't use swapfile
 set nobackup                    " Don't create annoying backup files
-set splitright                  " Vertical windows should be split to right
-set splitbelow                  " Horizontal windows should split to bottom
+" set splitright                  " Vertical windows should be split to right
+" set splitbelow                  " Horizontal windows should split to bottom
 set autowrite                   " Automatically save before :next, :make etc.
 
 " 'hidden' option - allows you to re-use the same
@@ -159,7 +161,16 @@ let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
-nnoremap <F5> :GoRun
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
+" golang shortcuts
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+autocmd FileType go nmap <leader>i  <Plug>(go-import)
+autocmd FileType go nmap <leader>d <Plug>(go-doc)
+autocmd FileType go nmap gr <Plug>(go-rename)
+
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -172,6 +183,7 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
+
 
 " >>>>>>>> Python
 
