@@ -1,5 +1,6 @@
-" Plugins configs
-
+"------------------------------------------------------------
+" Plugins
+"------------------------------------------------------------
 call plug#begin()
 
 " Usefull utils
@@ -10,7 +11,6 @@ Plug 'honza/vim-snippets'
 
 " Styles
 Plug 'mhartington/oceanic-next'
-" Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 " Syntax check
 Plug 'vim-syntastic/syntastic'
@@ -42,7 +42,8 @@ Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlig
 call plug#end()
 
 "------------------------------------------------------------
-" From Fatih-go
+" General from Fatih-Go
+"------------------------------------------------------------
 set nocompatible                " Enables us Vim specific features
 filetype off                    " Reset filetype detection first ...
 filetype plugin indent on       " ... and enable filetype detection
@@ -103,9 +104,9 @@ if has('persistent_undo')
 endif
 
 "------------------------------------------------------------
-
-"------------------------------------------------------------
 " My Configs
+"------------------------------------------------------------
+colorscheme OceanicNext
 set autowriteall
 set wildmenu
 
@@ -113,7 +114,6 @@ set wildmenu
 " While this behaviour deviates from that of Vi, it does what most users
 " coming from other editors would expect.
 set nostartofline
-
 
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
@@ -123,9 +123,7 @@ set confirm
 " line of a window
 set ruler
 
-" Enable use of the mouse for all modes
-set mouse=a
-
+" set leader to ,
 let mapleader = ','
 
 " Indentation settings for using 4 spaces instead of tabs.
@@ -152,10 +150,9 @@ au BufNewFile,BufRead *.json setlocal expandtab tabstop=2 shiftwidth=2 softtabst
 " toogle paste mode
 set pastetoggle=<F2>
 
-" autoreload on changes
-set autoread
-
-" golang configs
+"------------------------------------------------------------
+" Golang Configs
+"------------------------------------------------------------
 " advanced syntax highligh
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -164,17 +161,36 @@ let g:go_highlight_function_calls = 1
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " golang shortcuts
-autocmd FileType go nmap <leader>b  <Plug>(go-build)
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
 autocmd FileType go nmap <leader>i  <Plug>(go-import)
 autocmd FileType go nmap <leader>d <Plug>(go-doc)
 autocmd FileType go nmap gr <Plug>(go-rename)
 
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>c :cclose<CR>
+let g:go_list_type = "quickfix"
 
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+"------------------------------------------------------------
+" Autocompletion + snippets
+"------------------------------------------------------------
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_key_list_previous_completion = ['<C-m>', '<Up>']
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
@@ -182,11 +198,11 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 set completeopt-=preview
-let g:ycm_add_preview_to_completeopt = 0
 
 
-" >>>>>>>> Python
-
+"------------------------------------------------------------
+" Python
+"------------------------------------------------------------
 " virtualenv support
 " python3 << EOF
 " import os
@@ -197,13 +213,10 @@ let g:ycm_add_preview_to_completeopt = 0
 "   execfile(activate_this, dict(__file__=activate_this))
 " EOF
 
-" <<<<<<<< Python
 
-" >>>>>>>>> YouCompleteMe
-let g:ycm_show_diagnostics_ui = 0
-" <<<<<<<< Python
-
-" >>>>>>>>> Syntaic-syntax check config start
+"------------------------------------------------------------
+" Syntatic-syntax
+"------------------------------------------------------------
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -213,16 +226,17 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_python_checkers = ['python3']
-" <<<<<<<<< Syntaic-syntax check config end
 
 
-" >>>>>>>>>>>> Shell
+"------------------------------------------------------------
+" Shell-checks
+"------------------------------------------------------------
 let g:syntastic_sh_shellcheck_args="-e SC1091"
-" <<<<<<<<<<<< Shell
 
 
-" >>>>>>>>>> Start vim-terraform-configs
-
+"------------------------------------------------------------
+" Terraform
+"------------------------------------------------------------
 " (Optional)Remove Info(Preview) window
 set completeopt-=preview
 
@@ -239,11 +253,3 @@ let g:terraform_completion_keys = 1
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
 let g:terraform_registry_module_completion = 0
 autocmd BufWritePre *.tf :TerraformFmt
-" <<<<<<<<<< vim-terraform configs
-
-colorscheme OceanicNext
-" colorscheme onehalfdark
-" let g:airline_theme='onehalfdark'
-" nnoremap p p`[v`]=
-" nnoremap P P`[v`]=
-
