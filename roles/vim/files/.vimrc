@@ -160,11 +160,12 @@ let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
-" golang shortcuts
+" keyboard shortcuts
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
 autocmd FileType go nmap <leader>i  <Plug>(go-import)
 autocmd FileType go nmap <leader>d <Plug>(go-doc)
+autocmd FileType go nmap <leader>a <Plug>(go-alternate)
 autocmd FileType go nmap gr <Plug>(go-rename)
 
 map <C-n> :cnext<CR>
@@ -182,6 +183,10 @@ function! s:build_go_files()
   endif
 endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+
+au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 
 "------------------------------------------------------------
 " Autocompletion + snippets
