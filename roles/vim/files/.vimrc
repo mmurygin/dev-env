@@ -158,20 +158,23 @@ let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " keyboard shortcuts
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
 autocmd FileType go nmap <leader>i  <Plug>(go-import)
-autocmd FileType go nmap <leader>d <Plug>(go-doc)
-autocmd FileType go nmap <leader>a <Plug>(go-alternate)
+autocmd FileType go nmap <leader>a <Plug>(go-alternate-edit)
+autocmd FileType go nmap <leader>d <Plug>(go-def)
 autocmd FileType go nmap gr <Plug>(go-rename)
+autocmd FileType go nmap gD <Plug>(go-def-stack)
 
 map <C-n> :cnext<CR>
 map <C-m> :cprevious<CR>
 nnoremap <leader>c :cclose<CR>
-let g:go_list_type = "quickfix"
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -184,7 +187,13 @@ function! s:build_go_files()
 endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
+" Automatically get signature/type info for object under cursor
+" (too slow in vostro)
+" let g:go_auto_type_info = 1
+
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_fmt_command = "goimports"
+let g:go_list_type = "quickfix"
 
 au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 
