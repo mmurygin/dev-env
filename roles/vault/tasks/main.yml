@@ -16,3 +16,4 @@
 - name: install vault autocomplete
   command: vault -autocomplete-install
   when: vault_is_installed.rc != 0
+  ignore_errors: yes
