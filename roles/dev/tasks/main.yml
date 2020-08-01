@@ -13,4 +13,5 @@
       - clang
       - cppcheck
       - curl
+      - ncdu
   become: True
