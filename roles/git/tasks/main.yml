@@ -1,5 +1,10 @@
 ---
-- name: add git aliases
+- name: Install git
+  apt:
+    name: git
+    state: present
+
+- name: setup git configs
   blockinfile:
     path: ~/.gitconfig
     marker: "# {mark} ANSIBLE MANAGED BLOCK"
@@ -9,6 +14,11 @@
         co = checkout
         br = branch
         st = status
+      [pull]
+        rebase = false
+      [user]
+      	name = Maxim Murygin
+      	email = maxim.murygin@booking.com
 
 # - name: setup branch name
 #   blockinfile:

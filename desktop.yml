@@ -8,7 +8,7 @@
     - gnome-shell
 
     # common dev
-    - configs
+    - git
     - dev
     - xclip
     - cron-update-packages
