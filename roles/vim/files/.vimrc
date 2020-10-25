@@ -217,6 +217,7 @@ set completeopt-=preview
 "------------------------------------------------------------
 " Python
 "------------------------------------------------------------
+let g:jedi#show_call_signatures=0
 " virtualenv support
 " python3 << EOF
 " import os
@@ -265,5 +266,5 @@ let g:syntastic_terraform_tffilter_plan = 1
 let g:terraform_completion_keys = 1
 
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
-let g:terraform_registry_module_completion = 0
+let g:terraform_registry_module_completion = 1
 autocmd BufWritePre *.tf :TerraformFmt
