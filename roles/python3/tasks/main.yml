@@ -14,3 +14,9 @@
       - python{{ python_version }}-venv
       - python{{ python_version }}-dev
   become: True
+
+- name: add alias
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: 'alias venv="python3.8 -m venv .venv && source .venv/bin/activate && pip install --upgrade pip"'
