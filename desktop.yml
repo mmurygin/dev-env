@@ -15,9 +15,8 @@
 
     # languages
     - go
-    - python3
 
-    # autocomplete (required golang)
+    # autocomplete (requires golang)
     - fzf
 
     # editors
