@@ -26,7 +26,7 @@
 
     # virtualization
     - kvm
-    # - virtualbox
+    - virtualbox
 
 
     # kubernetes
