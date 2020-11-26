@@ -21,7 +21,6 @@ Plug 'juliosueiras/vim-terraform-completion'
 
 " Python
 Plug 'davidhalter/jedi-vim'
-" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'nvie/vim-flake8'
 
@@ -217,7 +216,11 @@ set completeopt-=preview
 "------------------------------------------------------------
 " Python
 "------------------------------------------------------------
-let g:jedi#show_call_signatures=0
+let g:jedi#show_call_signatures_delay = 0
+let g:jedi#show_call_signatures = 2
+let g:jedi#smart_auto_mappings = 1
+let g:jedi#popup_select_first = 1
+
 " virtualenv support
 " python3 << EOF
 " import os
@@ -250,6 +253,13 @@ let g:syntastic_sh_shellcheck_args="-e SC1091"
 
 
 "------------------------------------------------------------
+" Spell check
+"------------------------------------------------------------
+set spell spelllang=en_us
+set spellcapcheck=
+
+
+"------------------------------------------------------------
 " Terraform
 "------------------------------------------------------------
 " (Optional)Remove Info(Preview) window
@@ -268,3 +278,5 @@ let g:terraform_completion_keys = 1
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
 let g:terraform_registry_module_completion = 1
 autocmd BufWritePre *.tf :TerraformFmt
+
+

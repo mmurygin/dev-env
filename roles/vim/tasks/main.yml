@@ -11,10 +11,17 @@
     state: present
   become: yes
 
-- name: copy vim configs
-  copy:
-    src: files/.vimrc
+- name: create a simlink for configs
+  file:
+    src: "{{ role_path }}/files/.vimrc"
     dest: ~/.vimrc
+    state: link
+
+- name: create a simlink for spell check dictionary
+  file:
+    src: "{{ role_path }}/files/.vim/spell/en.utf-8.add"
+    dest: ~/.vim/spell/en.utf-8.add
+    state: link
 
 - name: install plugins
   include_tasks: plugins.yml
