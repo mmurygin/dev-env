@@ -255,7 +255,7 @@ let g:syntastic_sh_shellcheck_args="-e SC1091"
 "------------------------------------------------------------
 " Spell check
 "------------------------------------------------------------
-set spell spelllang=en_us
+" set spell spelllang=en_us
 set spellcapcheck=
 
 

@@ -14,6 +14,7 @@
       - cppcheck
       - curl
       - ncdu
+      - jq
   become: True
 
 - name: setup filewatchers configs
