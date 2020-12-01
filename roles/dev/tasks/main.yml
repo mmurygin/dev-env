@@ -24,3 +24,11 @@
     state: present
     reload: yes
   become: True
+
+- name: setup aliases for bashrc
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: "{{ item }}"
+  loop:
+    - "alias va='source .venv/bin/activate'"

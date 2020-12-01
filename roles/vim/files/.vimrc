@@ -187,10 +187,10 @@ endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 " Automatically get signature/type info for object under cursor
-" (too slow in vostro)
-" let g:go_auto_type_info = 1
+let g:go_auto_type_info = 1
 
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_autosave = 1
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 
@@ -278,5 +278,3 @@ let g:terraform_completion_keys = 1
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
 let g:terraform_registry_module_completion = 1
 autocmd BufWritePre *.tf :TerraformFmt
-
-
