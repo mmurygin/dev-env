@@ -30,7 +30,7 @@ Plug 'stephpy/vim-yaml'
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 
 " Other
 Plug 'martinda/Jenkinsfile-vim-syntax'
@@ -172,8 +172,10 @@ autocmd FileType go nmap gr <Plug>(go-rename)
 autocmd FileType go nmap gD <Plug>(go-def-stack)
 
 map <C-n> :cnext<CR>
+map <C-p> :cprevious<CR>
 map <C-m> :cprevious<CR>
 nnoremap <leader>c :cclose<CR>
+nnoremap <C-c> :cclose<CR>
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -189,8 +191,9 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 " Automatically get signature/type info for object under cursor
 let g:go_auto_type_info = 1
 
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
+let g:go_metalinter_command='gopls'
+" let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 

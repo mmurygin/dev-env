@@ -32,3 +32,4 @@
     line: "{{ item }}"
   loop:
     - "alias va='source .venv/bin/activate'"
+    - "alias p3=python3"
