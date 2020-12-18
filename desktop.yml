@@ -24,7 +24,7 @@
     - tmux
 
     # virtualization
-    # - kvm
+    - kvm
     - virtualbox
 
 
