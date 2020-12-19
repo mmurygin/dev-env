@@ -19,3 +19,28 @@
     dest: /etc/bash_completion.d/vagrant
     mode: 0644
   become: yes
+
+# start: vagrant libvirt plugin
+
+- name: install vagrant-libvirt deps
+  apt:
+    pkg:
+      - libxslt-dev
+      - libxml2-dev
+      - libvirt-dev
+      - zlib1g-dev
+      - ruby-dev
+    state: present
+  become: yes
+
+- name: check if vagrant-libvirt plugin is installed
+  shell: vagrant plugin list | grep vagrant-libvirt
+  register: vagrant_libvirt_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: install vagrant libvirt plugin
+  command: vagrant plugin install vagrant-libvirt
+  when: vagrant_libvirt_is_installed.rc != 0
+
+# end: vagrant libvirt plugin

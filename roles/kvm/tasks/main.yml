@@ -9,6 +9,8 @@
       - libvirt-clients
       - bridge-utils
       - virt-manager
+      - ebtables
+      - dnsmasq-base
   become: True
 
 - name: adding existing user "{{ ansible_user_id }}" to group "libvirt"
