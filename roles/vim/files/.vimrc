@@ -32,9 +32,14 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
 " Plug 'ctrlpvim/ctrlp.vim'
 
+
+
+" node
+Plug 'moll/vim-node'
+Plug 'myhere/vim-nodejs-complete'
+
 " Other
 Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'myhere/vim-nodejs-complete'
 Plug 'rodjek/vim-puppet'
 Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 
@@ -207,6 +212,7 @@ let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-m>', '<Up>']
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_show_diagnostics_ui = 0
+let g:ycm_auto_hover = ''
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
@@ -222,7 +228,7 @@ set completeopt-=preview
 let g:jedi#show_call_signatures_delay = 0
 let g:jedi#show_call_signatures = 2
 let g:jedi#smart_auto_mappings = 1
-let g:jedi#popup_select_first = 1
+let g:jedi#popup_select_first = 0
 
 " virtualenv support
 " python3 << EOF
@@ -259,7 +265,7 @@ let g:syntastic_sh_shellcheck_args="-e SC1091"
 " Spell check
 "------------------------------------------------------------
 " set spell spelllang=en_us
-set spellcapcheck=
+nnoremap <leader>s :set spell spelllang=en_us<CR> :set spellcapcheck=<CR>
 
 
 "------------------------------------------------------------
