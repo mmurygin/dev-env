@@ -41,5 +41,3 @@
     - packer
     # - chef
 
-    # clouds
-    - aws
