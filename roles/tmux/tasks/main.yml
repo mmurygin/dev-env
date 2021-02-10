@@ -15,11 +15,12 @@
     dest: ~/.tmux/plugins/tpm
     update: no
 
-- name: copy config file
-  copy:
-    src: files/.tmux.conf
+- name: create a simlink for configs
+  file:
+    src: "{{ role_path }}/files/.tmux.conf"
     dest: ~/.tmux.conf
+    state: link
 
 - name: install tmux plugins
-  command: ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+  command: ~/.tmux/plugins/tpm/bin/install_plugins
   changed_when: no
