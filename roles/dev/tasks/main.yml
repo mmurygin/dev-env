@@ -15,6 +15,7 @@
       - curl
       - ncdu
       - jq
+      - ruby2.7
   become: True
 
 - name: setup filewatchers configs
@@ -24,6 +25,18 @@
     state: present
     reload: yes
   become: True
+
+- name: setup editor
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: "export EDITOR=vim"
+
+- name: add ruby gems to path
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: 'export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"'
 
 - name: setup aliases for bashrc
   lineinfile:
