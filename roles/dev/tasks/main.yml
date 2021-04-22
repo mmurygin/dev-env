@@ -33,4 +33,6 @@
   loop:
     - "alias va='source .venv/bin/activate'"
     - "alias p3=python3"
+    - "alias pd3=pydoc3"
     - "alias ptree='tree -I __pycache__'"
+    - "alias sg='grep --exclude-dir .git --exclude-dir .venv -R'"
