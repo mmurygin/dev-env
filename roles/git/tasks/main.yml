@@ -11,18 +11,13 @@
     create: True
     block: |
       [alias]
-        co = checkout
-        br = branch
-        st = status
+          co = checkout
+          br = branch
+          st = status
       [pull]
-        rebase = false
+          rebase = true
+          default = current
       [user]
-      	name = Maxim Murygin
-      	email = maxim.murygin@booking.com
-
-# - name: setup branch name
-#   blockinfile:
-#     path: ~/.bashrc
-#     marker: "# {mark} ANSIBLE MANAGED BLOCK"
-#     block: "{{ lookup('file', './files/branch-name.sh') }}"
+          name = Max Murygin
+          email = maxim.murygin@booking.com
 ...
