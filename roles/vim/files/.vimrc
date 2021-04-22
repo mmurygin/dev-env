@@ -23,6 +23,7 @@ Plug 'juliosueiras/vim-terraform-completion'
 Plug 'davidhalter/jedi-vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'nvie/vim-flake8'
+Plug 'vim-scripts/indentpython.vim'
 
 " Yaml
 Plug 'stephpy/vim-yaml'
@@ -155,6 +156,17 @@ au BufNewFile,BufRead *.json setlocal expandtab tabstop=2 shiftwidth=2 softtabst
 " toogle paste mode
 set pastetoggle=<F2>
 
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+" Fold/Unfold
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+
+" run current file
+nnoremap <F9> :!%:p
+
 "------------------------------------------------------------
 " Golang Configs
 "------------------------------------------------------------
@@ -260,15 +272,10 @@ let g:syntastic_go_checkers = ['go', 'govet']
 "------------------------------------------------------------
 " Shell-checks
 "------------------------------------------------------------
-let g:syntastic_sh_shellcheck_args="-e SC1091"
-
-
-"------------------------------------------------------------
-" Spell check
-"------------------------------------------------------------
 " set spell spelllang=en_us
-nnoremap <leader>s :set spell spelllang=en_us<CR> :set spellcapcheck=<CR>
 
+let g:syntastic_sh_shellcheck_args="-e SC1091"
+nnoremap <leader>s :set spell spelllang=en_us<CR> :set spellcapcheck=<CR>
 
 "------------------------------------------------------------
 " Terraform
@@ -289,3 +296,5 @@ let g:terraform_completion_keys = 1
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
 let g:terraform_registry_module_completion = 1
 autocmd BufWritePre *.tf :TerraformFmt
+
+let @a = '0yyp0gu$0:.s/ /./e0:.s/ \+//geI<A@booking.com>kJICo-authored-by: 07wdt<i 0:.s/ \+/ /ge:noh06wvU0k'
