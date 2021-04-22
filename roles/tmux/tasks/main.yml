@@ -9,17 +9,22 @@
   include_tasks: install.yml
   when: tmux_is_installed.rc != 0
 
-- name: clone plugin manager repo
-  git:
-    repo: https://github.com/tmux-plugins/tpm
-    dest: ~/.tmux/plugins/tpm
-    update: no
+- name: install tmuxinator
+  apt:
+    name: tmuxinator
+    state: present
 
 - name: create a simlink for configs
   file:
     src: "{{ role_path }}/files/.tmux.conf"
     dest: ~/.tmux.conf
     state: link
+
+- name: clone plugin manager repo
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+    update: no
 
 - name: install tmux plugins
   command: ~/.tmux/plugins/tpm/bin/install_plugins
