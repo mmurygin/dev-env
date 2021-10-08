@@ -8,6 +8,7 @@ Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --go-completer' }
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'tpope/vim-eunuch'
 
 " Styles
 Plug 'mhartington/oceanic-next'
@@ -18,6 +19,7 @@ Plug 'vim-syntastic/syntastic'
 " Terraform plugins
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
+Plug 'hashivim/vim-packer'
 
 " Python
 Plug 'davidhalter/jedi-vim'
@@ -158,6 +160,7 @@ set pastetoggle=<F2>
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
 " Fold/Unfold
 set foldmethod=indent
@@ -243,7 +246,6 @@ let g:jedi#show_call_signatures = 2
 let g:jedi#smart_auto_mappings = 1
 let g:jedi#popup_select_first = 0
 
-" virtualenv support
 " python3 << EOF
 " import os
 " import sys
@@ -296,5 +298,6 @@ let g:terraform_completion_keys = 1
 " (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
 let g:terraform_registry_module_completion = 1
 autocmd BufWritePre *.tf :TerraformFmt
+autocmd BufRead,BufNewFile *.hcl set filetype=terraform
 
 let @a = '0yyp0gu$0:.s/ /./e0:.s/ \+//geI<A@booking.com>kJICo-authored-by: 07wdt<i 0:.s/ \+/ /ge:noh06wvU0k'
