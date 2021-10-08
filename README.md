@@ -18,20 +18,21 @@
     }
     ```
 
-1. Install ansible
-    ```bash
-    {
-        sudo apt install -y software-properties-common
-        sudo apt-add-repository --yes --update ppa:ansible/ansible
-        sudo apt install -y ansible
-    }
-    ```
 
 1. Clone repo
     ```bash
     {
         git clone https://github.com/muryginm/dev-env.git
         cd dev-env
+    }
+    ```
+
+1. Install dependencies
+    ```bash
+    {
+        python3 -m venv .venv
+        source .venv/bin/activate
+        pip install -r requirements.txt
     }
     ```
 
