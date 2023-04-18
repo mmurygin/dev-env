@@ -8,14 +8,12 @@
       - cmake
       - tree
       - pkg-config
-      - gnome-tweak-tool
       - python3-pip
       - clang
       - cppcheck
       - curl
       - ncdu
       - jq
-      - ruby2.7
   become: True
 
 - name: setup filewatchers configs

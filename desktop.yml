@@ -4,11 +4,11 @@
   hosts: localhost
   roles:
     # UI
-    - chrome
-    - gnome-shell
+    # - chrome
+    # - gnome-shell
 
     # common dev
-    - git
+    # - git
     - dev
     - xclip
     - cron-update-packages
@@ -17,15 +17,15 @@
     - go
 
     # autocomplete (requires golang)
-    - fzf
+    # - fzf
 
     # editors
     - vim
     - tmux
 
     # virtualization
-    - kvm
-    - virtualbox
+    # - kvm
+    # - virtualbox
 
 
     # kubernetes
@@ -35,9 +35,9 @@
     # - helmfile
 
     # devops
-    - vagrant
-    - terraform
-    - vault
-    - packer
+    # - vagrant
+    # - terraform
+    # - vault
+    # - packer
     # - chef
 
