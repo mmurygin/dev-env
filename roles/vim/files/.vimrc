@@ -14,7 +14,8 @@ Plug 'tpope/vim-eunuch'
 Plug 'mhartington/oceanic-next'
 
 " Syntax check
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
+Plug 'dense-analysis/ale'
 
 " Terraform plugins
 Plug 'hashivim/vim-terraform'
@@ -43,9 +44,7 @@ Plug 'moll/vim-node'
 Plug 'myhere/vim-nodejs-complete'
 
 " Other
-Plug 'martinda/Jenkinsfile-vim-syntax'
 Plug 'rodjek/vim-puppet'
-Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 
 call plug#end()
 
@@ -160,7 +159,9 @@ set pastetoggle=<F2>
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn)|__pycache__)$'
 
 " Fold/Unfold
 set foldmethod=indent
@@ -169,6 +170,29 @@ nnoremap <space> za
 
 " run current file
 nnoremap <F9> :!%:p
+
+" ale highlights
+highlight ALEError ctermbg=none cterm=underline
+highlight ALEWarning ctermbg=none cterm=underline
+
+" Configure error/warning signs in the gutter
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+
+" Set specific colors for the signs
+highlight ALEErrorSign ctermfg=red ctermbg=none
+highlight ALEWarningSign ctermfg=yellow ctermbg=none
+
+" Enable highlighting for errors and warnings
+let g:ale_set_highlights = 1
+
+" Set virtual text format
+let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_prefix = '❯ '
+
+" Configure hover behavior
+let g:ale_hover_cursor = 1
+let g:ale_hover_to_floating_preview = 1
 
 "------------------------------------------------------------
 " Golang Configs
@@ -212,9 +236,16 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 " Automatically get signature/type info for object under cursor
 let g:go_auto_type_info = 1
 
-" let g:go_metalinter_autosave = 1
-" let g:go_metalinter_command='golang-cli'
-" let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_enabled = []
+let g:go_metalinter_autosave = 0
+let g:go_metalinter_command = ''
+
+let g:ale_go_golangci_lint_options = '-e=ST1008'
+let g:ale_go_golangci_lint_package = 1
+
+let g:ale_go_golangci_lint_options = ''
+let g:ale_go_golangci_lint_package = 1
+
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 
@@ -246,6 +277,14 @@ let g:jedi#show_call_signatures = 2
 let g:jedi#smart_auto_mappings = 1
 let g:jedi#popup_select_first = 0
 
+let g:ale_warn_about_trailing_whitespace = 0
+
+
+" let g:ale_linters={
+"     'python': ['pylint'],
+"     'go': ['golangci-lint', 'gofmt']
+" }
+
 " python3 << EOF
 " import os
 " import sys
@@ -259,16 +298,16 @@ let g:jedi#popup_select_first = 0
 "------------------------------------------------------------
 " Syntatic-syntax
 "------------------------------------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_python_checkers = ['python3', 'flake8']
-let g:syntastic_go_checkers = ['go', 'govet']
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+"
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 1
+" let g:syntastic_python_checkers = ['python3', 'flake8']
+" let g:syntastic_go_checkers = ['go', 'govet']
 
 
 "------------------------------------------------------------
@@ -276,8 +315,8 @@ let g:syntastic_go_checkers = ['go', 'govet']
 "------------------------------------------------------------
 " set spell spelllang=en_us
 
-let g:syntastic_sh_shellcheck_args="-e SC1091"
-nnoremap <leader>s :set spell spelllang=en_us<CR> :set spellcapcheck=<CR>
+" let g:syntastic_sh_shellcheck_args="-e SC1091"
+" nnoremap <leader>s :set spell spelllang=en_us<CR> :set spellcapcheck=<CR>
 
 "------------------------------------------------------------
 " Terraform
@@ -301,3 +340,31 @@ autocmd BufWritePre *.tf :TerraformFmt
 autocmd BufRead,BufNewFile *.hcl set filetype=terraform
 
 let @a = '0yyp0gu$0:.s/ /./e0:.s/ \+//geI<A@booking.com>kJICo-authored-by: 07wdt<i 0:.s/ \+/ /ge:noh06wvU0k'
+
+
+" Puppet formatting
+function! FormatCode()
+  let file = expand('%:p')
+  if !filewritable(file)
+    return
+  endif
+  noautocmd write
+  let script_file =
+        \ system('git rev-parse --show-toplevel')[:-2] .
+        \ '/scripts/format-' . &filetype . '.sh'
+  if v:shell_error != 0 || !filereadable(script_file)
+    return
+  endif
+  let output = system(script_file . ' ' . file)
+  if v:shell_error == 0
+    let view = winsaveview()
+    edit
+    call winrestview(view)
+  else
+    echo output
+  endif
+endfunction
+augroup format_code_on_save
+  autocmd BufWriteCmd *.pp call FormatCode()
+  autocmd BufWriteCmd *.yaml,*.eyaml,*.yml call FormatCode()
+augroup end
