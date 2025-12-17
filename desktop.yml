@@ -21,6 +21,8 @@
     # editors
     - vim
     - tmux
+    - role: windsurf
+      tags: windsurf
 
     # virtualization
     # - kvm
