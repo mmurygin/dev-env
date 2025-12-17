@@ -23,9 +23,7 @@ Plug 'juliosueiras/vim-terraform-completion'
 Plug 'hashivim/vim-packer'
 
 " Python
-Plug 'davidhalter/jedi-vim'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'nvie/vim-flake8'
 Plug 'vim-scripts/indentpython.vim'
 
 " Yaml
@@ -34,14 +32,14 @@ Plug 'stephpy/vim-yaml'
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Perl
 Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 
 " node
 Plug 'moll/vim-node'
-Plug 'myhere/vim-nodejs-complete'
 
 " Other
 Plug 'rodjek/vim-puppet'
@@ -96,6 +94,9 @@ set pumheight=10                " Completion window max size
 set nocursorcolumn              " Do not highlight column (speeds up highlighting)
 set nocursorline                " Do not highlight cursor (speeds up highlighting)
 set lazyredraw                  " Wait to redraw
+set updatetime=300              " Faster CursorHold events
+set signcolumn=yes              " Always show sign column
+set mouse=a                     " Enable mouse support
 
 " Enable to copy to clipboard for operations like yank, delete, change and put
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
@@ -157,11 +158,13 @@ au BufNewFile,BufRead *.json setlocal expandtab tabstop=2 shiftwidth=2 softtabst
 " toogle paste mode
 set pastetoggle=<F2>
 
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+" fzf mappings
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>g :Rg<CR>
+nnoremap <leader>b :Buffers<CR>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn)|__pycache__)$'
 
 " Fold/Unfold
 set foldmethod=indent
@@ -217,20 +220,20 @@ autocmd FileType go nmap gr <Plug>(go-rename)
 autocmd FileType go nmap gD <Plug>(go-def-stack)
 
 map <C-n> :cnext<CR>
-map <C-p> :cprevious<CR>
-map <C-m> :cprevious<CR>
 nnoremap <leader>c :cclose<CR>
 nnoremap <C-c> :cclose<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprevious<CR>
 
 " run :GoBuild or :GoTestCompile based on the go file
-" function! s:build_go_files()
-"   let l:file = expand('%')
-"   if l:file =~# '^\f\+_test\.go$'
-"     call go#test#Test(0, 1)
-"   elseif l:file =~# '^\f\+\.go$'
-"     call go#cmd#Build(0)
-"   endif
-" endfunction
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 " Automatically get signature/type info for object under cursor
@@ -241,9 +244,6 @@ let g:go_metalinter_autosave = 0
 let g:go_metalinter_command = ''
 
 let g:ale_go_golangci_lint_options = '-e=ST1008'
-let g:ale_go_golangci_lint_package = 1
-
-let g:ale_go_golangci_lint_options = ''
 let g:ale_go_golangci_lint_package = 1
 
 let g:go_fmt_command = "goimports"
@@ -272,18 +272,20 @@ set completeopt-=preview
 "------------------------------------------------------------
 " Python
 "------------------------------------------------------------
-let g:jedi#show_call_signatures_delay = 0
-let g:jedi#show_call_signatures = 2
-let g:jedi#smart_auto_mappings = 1
-let g:jedi#popup_select_first = 0
-
 let g:ale_warn_about_trailing_whitespace = 0
 
 
-" let g:ale_linters={
-"     'python': ['pylint'],
-"     'go': ['golangci-lint', 'gofmt']
-" }
+let g:ale_linters = {
+\   'go': ['golangci-lint'],
+\   'python': ['ruff', 'mypy'],
+\   'sh': ['shellcheck'],
+\   'yaml': ['yamllint'],
+\}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['ruff', 'black'],
+\   'go': ['goimports'],
+\}
 
 " python3 << EOF
 " import os
@@ -339,8 +341,8 @@ let g:terraform_registry_module_completion = 1
 autocmd BufWritePre *.tf :TerraformFmt
 autocmd BufRead,BufNewFile *.hcl set filetype=terraform
 
-let @a = '0yyp0gu$0:.s/ /./e0:.s/ \+//geI<A@booking.com>kJICo-authored-by: 07wdt<i 0:.s/ \+/ /ge:noh06wvU0k'
-
+" Co-author macro - use :let @a = '<paste macro here>' to restore
+" let @a = '0yyp0gu$0:.s/ /./e<CR>0:.s/ \\+//ge<CR>I<C-[>A@booking.com<C-[>kJICo-authored-by: <C-[>07wdt<i <C-[>0:.s/ \\+/ /ge<CR>:noh<CR>06wvU0k'
 
 " Puppet formatting
 function! FormatCode()
