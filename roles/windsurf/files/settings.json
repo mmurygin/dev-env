@@ -1,0 +1,28 @@
+{
+    "workbench.colorTheme": "ArifCode Theme - Original",
+    "makefile.configureOnOpen": true,
+    "go.toolsManagement.autoUpdate": true,
+    "git.openRepositoryInParentFolders": "never",
+    "editor.minimap.enabled": false,
+    "editor.suggest.showTypeParameters": false,
+    "outline.showTypeParameters": false,
+    "breadcrumbs.showTypeParameters": false,
+    "java.signatureHelp.enabled": false,
+    // Global switch (in case it’s still on)
+    "editor.parameterHints.enabled": false,
+    // Java-specific editor overrides
+    "[java]": {
+        "editor.parameterHints.enabled": false,
+        "editor.inlayHints.enabled": "off" // or false depending on schema
+    },
+    // Java language-specific inlay / parameter name hints
+    "java.inlayHints.parameterNames.enabled": "none",
+    "files.exclude": {
+        "slib/**": true,
+        ".venv/**": true,
+        "target/**": true,
+        "node_modules/**": true,
+        "__pycache__/**": true,
+        ".git/**": true
+    }
+}
