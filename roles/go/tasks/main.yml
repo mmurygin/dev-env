@@ -50,4 +50,14 @@
     dest: /etc/bash_completion.d/go
     mode: 0644
   become: True
+
+- name: install shfmt (shell formatter)
+  shell: go install mvdan.cc/sh/v3/cmd/shfmt@latest
+  args:
+    creates: "{{ go_path }}/bin/shfmt"
+
+- name: install golangci-lint
+  shell: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+  args:
+    creates: "{{ go_path }}/bin/golangci-lint"
 ...

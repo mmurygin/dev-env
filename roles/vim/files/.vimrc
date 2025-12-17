@@ -9,6 +9,9 @@ Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-commentary'            " gcc to comment line, gc in visual
+Plug 'airblade/vim-gitgutter'           " Git diff in gutter
+Plug 'tpope/vim-fugitive'               " Git commands in vim
 
 " Styles
 Plug 'mhartington/oceanic-next'
@@ -67,11 +70,12 @@ set incsearch                   " Shows the match while typing
 set hlsearch                    " Highlight found searches
 set noerrorbells                " No beeps
 set number                      " Show line numbers
+set relativenumber              " Relative line numbers for easier motion
 set showcmd                     " Show me what I'm typing
 set noswapfile                  " Don't use swapfile
 set nobackup                    " Don't create annoying backup files
-" set splitright                  " Vertical windows should be split to right
-" set splitbelow                  " Horizontal windows should split to bottom
+set splitright                  " Vertical windows should be split to right
+set splitbelow                  " Horizontal windows should split to bottom
 set autowrite                   " Automatically save before :next, :make etc.
 
 " 'hidden' option - allows you to re-use the same
@@ -163,6 +167,18 @@ nnoremap <C-p> :Files<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>h :History<CR>
+nnoremap <leader>l :Lines<CR>
+
+" Window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Buffer navigation
+nnoremap <leader>n :bnext<CR>
+nnoremap <leader>p :bprevious<CR>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
@@ -208,6 +224,14 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
+
+" gopls integration
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
+let g:go_referrers_mode = 'gopls'
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " keyboard shortcuts
@@ -218,6 +242,10 @@ autocmd FileType go nmap <leader>a <Plug>(go-alternate-edit)
 autocmd FileType go nmap <leader>d <Plug>(go-def)
 autocmd FileType go nmap gr <Plug>(go-rename)
 autocmd FileType go nmap gD <Plug>(go-def-stack)
+autocmd FileType go nmap <leader>v <Plug>(go-def-vertical)
+autocmd FileType go nmap <leader>e <Plug>(go-iferr)
+autocmd FileType go nmap <leader>s <Plug>(go-implements)
+autocmd FileType go nmap <leader>cc <Plug>(go-coverage-toggle)
 
 map <C-n> :cnext<CR>
 nnoremap <leader>c :cclose<CR>
@@ -272,6 +300,14 @@ set completeopt-=preview
 "------------------------------------------------------------
 " Python
 "------------------------------------------------------------
+autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType python setlocal textwidth=88
+autocmd FileType python setlocal colorcolumn=88
+autocmd FileType python nnoremap <buffer> <leader>r :!python3 %<CR>
+autocmd FileType python nnoremap <buffer> <leader>t :!python3 -m pytest %<CR>
+
+let g:ale_python_ruff_options = '--line-length=88'
+let g:ale_python_black_options = '--line-length=88'
 let g:ale_warn_about_trailing_whitespace = 0
 
 
@@ -279,13 +315,27 @@ let g:ale_linters = {
 \   'go': ['golangci-lint'],
 \   'python': ['ruff', 'mypy'],
 \   'sh': ['shellcheck'],
+\   'bash': ['shellcheck'],
 \   'yaml': ['yamllint'],
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['ruff', 'black'],
+\   'python': ['ruff', 'isort', 'black'],
 \   'go': ['goimports'],
+\   'sh': ['shfmt'],
+\   'bash': ['shfmt'],
 \}
+
+" ALE behavior
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 100
+
+" ALE navigation
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
+nnoremap <leader>af :ALEFix<CR>
 
 " python3 << EOF
 " import os
@@ -313,12 +363,15 @@ let g:ale_fixers = {
 
 
 "------------------------------------------------------------
-" Shell-checks
+" Shell/Bash
 "------------------------------------------------------------
-" set spell spelllang=en_us
+autocmd FileType sh,bash setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType sh,bash nnoremap <buffer> <leader>r :!bash %<CR>
 
-" let g:syntastic_sh_shellcheck_args="-e SC1091"
-" nnoremap <leader>s :set spell spelllang=en_us<CR> :set spellcapcheck=<CR>
+" shellcheck: ignore sourcing issues, allow following sourced files
+let g:ale_sh_shellcheck_options = '-x -e SC1091'
+" shfmt: indent=2, binary ops may start a line, indent switch cases
+let g:ale_sh_shfmt_options = '-i 2 -bn -ci'
 
 "------------------------------------------------------------
 " Terraform

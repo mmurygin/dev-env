@@ -14,7 +14,24 @@
       - curl
       - ncdu
       - jq
+      - shellcheck
+      - pipx
   become: True
+
+- name: ensure pipx path is set
+  command: pipx ensurepath
+  changed_when: false
+
+- name: install python linting/formatting tools
+  shell: pipx install {{ item }}
+  args:
+    creates: ~/.local/bin/{{ item }}
+  loop:
+    - ruff
+    - black
+    - isort
+    - mypy
+    - yamllint
 
 - name: setup filewatchers configs
   sysctl:
