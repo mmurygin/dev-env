@@ -1,0 +1,24 @@
+---
+- name: check if windsurf is installed
+  shell: dpkg-query -W -f='${Status}' windsurf | grep 'install ok installed'
+  register: windsurf_is_installed
+  failed_when: no
+  changed_when: no
+
+- name: Install windsurf
+  apt:
+    deb: https://windsurf-stable.codeiumdata.com/linux-x64/stable/latest/Windsurf.deb
+    state: present
+  become: true
+  when: windsurf_is_installed.rc != 0
+
+- name: Create .windsurf directory
+  file:
+    path: "{{ playbook_dir}}/.windsurf"
+    state: directory
+
+- name: Symlink windsurf rules
+  file:
+    src: "{{ playbook_dir }}/roles/windsurf/files/rules"
+    dest: "{{ playbook_dir }}/.windsurf/rules"
+    state: link
