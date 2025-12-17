@@ -7,13 +7,13 @@
     # - chrome
     # - gnome-shell
 
+    # languages
+    - go
+
     # common dev
     - dev
     - xclip
     - cron-update-packages
-
-    # languages
-    - go
 
     # autocomplete (requires golang)
     # - fzf
