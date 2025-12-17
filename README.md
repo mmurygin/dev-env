@@ -38,5 +38,5 @@
 
 1. Provision development pc
     ```bash
-        ansible-playbook -K destop.yml
+        ansible-playbook -K desktop.yml
     ```
