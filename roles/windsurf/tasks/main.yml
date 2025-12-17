@@ -22,3 +22,23 @@
     src: "{{ playbook_dir }}/roles/windsurf/files/rules"
     dest: "{{ playbook_dir }}/.windsurf/rules"
     state: link
+
+- name: Create Windsurf User config directory
+  file:
+    path: "{{ ansible_env.HOME }}/.config/Windsurf/User"
+    state: directory
+
+- name: Symlink Windsurf settings.json
+  file:
+    src: "{{ playbook_dir }}/roles/windsurf/files/settings.json"
+    dest: "{{ ansible_env.HOME }}/.config/Windsurf/User/settings.json"
+    state: link
+    force: true
+
+- name: Symlink Windsurf keybindings.json
+  file:
+    src: "{{ playbook_dir }}/roles/windsurf/files/keybindings.json"
+    dest: "{{ ansible_env.HOME }}/.config/Windsurf/User/keybindings.json"
+    state: link
+    force: true
+
