@@ -8,7 +8,6 @@
     # - gnome-shell
 
     # common dev
-    # - git
     - dev
     - xclip
     - cron-update-packages
