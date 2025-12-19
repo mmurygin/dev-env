@@ -55,9 +55,15 @@
   shell: go install mvdan.cc/sh/v3/cmd/shfmt@latest
   args:
     creates: "{{ go_path }}/bin/shfmt"
+  environment:
+    PATH: "{{ go_install_base_dir }}/go/bin:{{ ansible_env.PATH }}"
+    GOPATH: "{{ go_path }}"
 
 - name: install golangci-lint
   shell: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
   args:
     creates: "{{ go_path }}/bin/golangci-lint"
+  environment:
+    PATH: "{{ go_install_base_dir }}/go/bin:{{ ansible_env.PATH }}"
+    GOPATH: "{{ go_path }}"
 ...
