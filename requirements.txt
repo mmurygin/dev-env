@@ -1,2 +1,2 @@
 wheel
-ansible==12.2.0
+ansible==10.7.0
