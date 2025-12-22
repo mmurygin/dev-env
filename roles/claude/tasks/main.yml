@@ -10,3 +10,4 @@
     src: "{{ playbook_dir }}/roles/claude/files/CLAUDE.md"
     dest: ~/.claude/CLAUDE.md
     state: link
+    force: yes
