@@ -23,7 +23,8 @@
     - tmux
     - role: windsurf
       tags: windsurf
-    - claude
+    - role: claude
+      tags: claude
 
     # virtualization
     # - kvm
