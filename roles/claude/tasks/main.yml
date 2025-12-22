@@ -1,0 +1,12 @@
+---
+- name: ensure .claude directory exists
+  file:
+    path: ~/.claude
+    state: directory
+    mode: 0755
+
+- name: symlink CLAUDE.md to user config
+  file:
+    src: "{{ playbook_dir }}/roles/claude/files/CLAUDE.md"
+    dest: ~/.claude/CLAUDE.md
+    state: link
