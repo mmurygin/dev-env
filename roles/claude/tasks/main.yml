@@ -18,3 +18,10 @@
     dest: ~/.claude/commands
     state: link
     force: yes
+
+- name: symlink skills directory to user config
+  file:
+    src: "{{ playbook_dir }}/roles/claude/files/skills"
+    dest: ~/.claude/skills
+    state: link
+    force: yes
