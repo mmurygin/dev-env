@@ -151,10 +151,6 @@ When adding functionality requiring tests:
 
 Changes take effect on next playbook run or by sourcing updated files manually.
 
-## Known Issues
-
-See `todo.md` in repository root. Current issue: executables not immediately available in PATH after installation (may require new shell session).
-
 ## Key Roles Overview
 
 - **dev**: Core development packages (build-essential, python3-pip, jq, shellcheck), Python tools via pipx (ruff, black, mypy, yamllint), bash aliases (`va`, `p3`, `sg`)
