@@ -10,8 +10,8 @@
     # languages
     - go
 
-    # common dev
-    - dev
+    - role: dev
+      tags: dev
     - xclip
     - cron-update-packages
 
