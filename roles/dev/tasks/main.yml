@@ -27,12 +27,17 @@
   args:
     creates: ~/.local/bin/{{ item }}
   loop:
+    - uv
     - ruff
     - black
     - isort
     - mypy
     - yamllint
-    - ast-grep-cli
+
+- name: install asg-grep
+  shell: pipx install ast-grep-cli
+  args:
+    creates: ~/.local/bin/ast-grep
 
 - name: setup filewatchers configs
   sysctl:
