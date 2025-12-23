@@ -18,7 +18,6 @@
     }
     ```
 
-
 1. Clone repo
     ```bash
     {
@@ -27,16 +26,14 @@
     }
     ```
 
-1. Install dependencies
+1. Install uv
+
     ```bash
-    {
-        python3 -m venv .venv
-        source .venv/bin/activate
-        pip install -r requirements.txt
-    }
+    pip install uv
     ```
 
 1. Provision development pc
+
     ```bash
-        ansible-playbook -K desktop.yml
+    uv run ansible-playbook -K desktop.yml
     ```
