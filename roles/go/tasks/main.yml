@@ -9,7 +9,7 @@
   file:
     path: "{{ go_install_base_dir }}/go"
     state: absent
-  become: True
+  become: true
   when: go_is_installed.rc != 0
 
 - name: install go {{ go_version }}
@@ -17,7 +17,7 @@
     src: https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz
     dest: "{{ go_install_base_dir }}"
     remote_src: True
-  become: True
+  become: true
   when: go_is_installed.rc != 0
 
 - name: add go to PATH
@@ -49,7 +49,7 @@
     url: https://raw.githubusercontent.com/skelterjohn/go-pkg-complete/master/go-pkg-complete.bash.inc
     dest: /etc/bash_completion.d/go
     mode: 0644
-  become: True
+  become: true
 
 - name: install shfmt (shell formatter)
   shell: go install mvdan.cc/sh/v3/cmd/shfmt@latest

@@ -19,7 +19,7 @@
   get_url:
     url: https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.bash
     dest: /etc/bash_completion.d/tmuxinator.bash
-  become: yes
+  become: true
 
 - name: create a simlink for configs
   file:

@@ -11,7 +11,7 @@
     dest: /usr/local/bin
     remote_src: yes
   when: vault_is_installed.rc != 0
-  become: yes
+  become: true
 
 - name: install vault autocomplete
   command: vault -autocomplete-install

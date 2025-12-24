@@ -10,7 +10,7 @@
     url: "https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
     mode: 0755
     dest: /usr/local/bin/kubectl
-  become: True
+  become: true
   when: kubectl_is_installed.rc != 0
 
 - name: install autocomplete

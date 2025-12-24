@@ -11,5 +11,5 @@
     dest: /usr/local/bin
     remote_src: yes
   when: k9s_is_installed.rc != 0
-  become: yes
+  become: true
 

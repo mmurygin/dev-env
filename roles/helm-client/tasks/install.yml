@@ -15,4 +15,4 @@
     src: "{{ install_dir.path }}/linux-amd64/helm"
     dest: /usr/local/bin/helm
     mode: 0755
-  become: True
+  become: true

@@ -3,11 +3,11 @@
   apt:
     name: virtualbox
     state: present
-  become: yes
+  become: true
 
 - name: setup autocompletion
   get_url:
     url: https://raw.githubusercontent.com/gryf/vboxmanage-bash-completion/master/VBoxManage
     dest: /etc/bash_completion.d/VBoxManage
     mode: 0644
-  become: yes
+  become: true

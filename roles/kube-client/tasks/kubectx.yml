@@ -20,7 +20,7 @@
   loop:
     - kubens
     - kubectx
-  become: True
+  become: true
 
 - name: add kubectx and kubens to system PATH
   lineinfile:
