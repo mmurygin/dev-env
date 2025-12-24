@@ -21,7 +21,6 @@
 
 - Prefer simple, maintainable solutions over clever or complex ones
 - Match existing code style over external standards - consistency within a file matters most
-- All files MUST start with 2-line `ABOUTME:` comments explaining the file's purpose
 - Comments should be evergreen - avoid temporal references ("recently changed", "new version")
 - NEVER name things "improved", "new", "enhanced" - code naming should be evergreen
 
@@ -147,8 +146,6 @@ If any answer is "yes" or "maybe", explain your concern before proceeding.
 ### Specific Guidelines
 
 - Fix discovered unrelated bugs - don't say "everything is done, EXCEPT there is a bug"
-- When choosing port numbers: make them thematically related and memorable (leet-speak, pop culture)
-- Keep infrastructure defaults boring (NATS, databases, etc.) to avoid common ports (8080, 8081)
 
 ### Template/File Management
 
