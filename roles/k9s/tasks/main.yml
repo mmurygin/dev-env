@@ -2,14 +2,14 @@
 - name: check if k9s is installed
   shell: which k9s && k9s version | grep "{{k9s_version}}"
   register: k9s_is_installed
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: install k9s
   unarchive:
     src: https://github.com/derailed/k9s/releases/download/v{{ k9s_version}}/k9s_{{ k9s_version}}_Linux_x86_64.tar.gz
     dest: /usr/local/bin
-    remote_src: yes
+    remote_src: true
   when: k9s_is_installed.rc != 0
   become: true
 

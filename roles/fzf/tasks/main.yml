@@ -2,8 +2,8 @@
 - name: check if fzf is installed
   shell: which fzf
   register: fzf_is_installed
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: install fzf
   command: go get -u github.com/junegunn/fzf

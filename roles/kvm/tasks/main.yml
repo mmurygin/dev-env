@@ -17,7 +17,7 @@
   user:
     name: "{{ ansible_user_id }}"
     groups: libvirt,kvm
-    append: yes
+    append: true
   become: true
 
 - name: setup virsh autocomplete

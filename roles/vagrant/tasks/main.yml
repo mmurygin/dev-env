@@ -2,14 +2,14 @@
 - name: check if vagrant v{{ vagrant_version }} is installed
   shell: which vagrant && vagrant --version | grep "Vagrant {{ vagrant_version }}"
   register: vagrant_is_installed
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: install vagrant v{{ vagrant_version }}
   apt:
     deb: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb
     state: present
-    autoremove: yes
+    autoremove: true
   when: vagrant_is_installed.rc != 0
   become: true
 
@@ -36,8 +36,8 @@
 # - name: check if vagrant-libvirt plugin is installed
 #   shell: vagrant plugin list | grep vagrant-libvirt
 #   register: vagrant_libvirt_is_installed
-#   failed_when: no
-#   changed_when: no
+#   failed_when: false
+#   changed_when: false
 #
 # - name: install vagrant libvirt plugin
 #   command: vagrant plugin install vagrant-libvirt

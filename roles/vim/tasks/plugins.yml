@@ -10,4 +10,4 @@
 
 - name: install plugins
   command: vim +PlugInstall +qall
-  changed_when: no
+  changed_when: false
