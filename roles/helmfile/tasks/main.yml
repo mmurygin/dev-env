@@ -2,8 +2,8 @@
 - name: check if helmfile is installed
   shell: which helmfile && helmfile --version | grep "^{{helmfile_version}}$"
   register: helmfile_is_installed
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: install helmfile
   get_url:
@@ -16,8 +16,8 @@
 - name: check if helm diff plugin is installed
   shell: helm plugin list | grep diff
   register: helm_diff_is_installed
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: install helmfile
   command: helm plugin install https://github.com/databus23/helm-diff --version master

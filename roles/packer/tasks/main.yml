@@ -2,14 +2,14 @@
 - name: check if packer is installed
   shell: which packer && packer --version | grep "^{{packer_version}}$"
   register: packer_is_installed
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: install packer {{ packer_version }}
   unarchive:
     src: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip
     dest: /usr/local/bin
-    remote_src: yes
+    remote_src: true
   when: packer_is_installed.rc != 0
   become: true
 

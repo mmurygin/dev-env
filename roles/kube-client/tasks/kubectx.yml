@@ -4,13 +4,13 @@
     repo: https://github.com/ahmetb/kubectx.git
     dest: ~/.kubectx
     depth: 1
-    update: no
+    update: false
 
 - name: get autocomplete path
   command: pkg-config --variable=completionsdir bash-completion
   register: autocomplete_path
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: setup autocomplete for kubens and kubectx
   file:

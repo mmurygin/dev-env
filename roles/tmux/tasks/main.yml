@@ -2,8 +2,8 @@
 - name: check if tmux is installed
   shell: which tmux && tmux -V | grep "tmux {{ tmux_version }}"
   register: tmux_is_installed
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: include install tmux tasks when tmux is not installed
   include_tasks: install.yml
@@ -31,8 +31,8 @@
   git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
-    update: no
+    update: false
 
 - name: install tmux plugins
   command: ~/.tmux/plugins/tpm/bin/install_plugins
-  changed_when: no
+  changed_when: false

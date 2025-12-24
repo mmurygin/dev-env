@@ -10,18 +10,18 @@
     src: "{{ playbook_dir }}/roles/claude/files/CLAUDE.md"
     dest: ~/.claude/CLAUDE.md
     state: link
-    force: yes
+    force: true
 
 - name: symlink commands directory to user config
   file:
     src: "{{ playbook_dir }}/roles/claude/files/commands"
     dest: ~/.claude/commands
     state: link
-    force: yes
+    force: true
 
 - name: symlink skills directory to user config
   file:
     src: "{{ playbook_dir }}/roles/claude/files/skills"
     dest: ~/.claude/skills
     state: link
-    force: yes
+    force: true

@@ -2,8 +2,8 @@
 - name: check if kubectl is installed
   shell: which kubectl && kubectl version --client --short | grep -F "{{ kubectl_version }}"
   register: kubectl_is_installed
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: install kubectl
   get_url:

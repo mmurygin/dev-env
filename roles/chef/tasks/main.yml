@@ -2,8 +2,8 @@
 - name: check if chef workstation is installed
   shell: 'which chef && chef --version | grep -F "Chef Workstation version: {{ chef_version }}"'
   register: chef_is_installed
-  failed_when: no
-  changed_when: no
+  failed_when: false
+  changed_when: false
 
 - name: install chef workstation
   apt:
