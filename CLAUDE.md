@@ -8,24 +8,19 @@ Ansible-based infrastructure-as-code project that automates provisioning of an U
 
 ## Essential Commands
 
-### Initial Setup
+### Running playbook
 ```bash
-# Install dependencies
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-
 # Run full playbook (requires sudo password)
-ansible-playbook -K desktop.yml
+uv run ansible-playbook -K desktop.yml
 ```
 
 ### Running Specific Roles
 ```bash
 # Run single role by tag
-ansible-playbook -K desktop.yml --tags windsurf
+uv run ansible-playbook -K desktop.yml --tags windsurf
 
 # Resume from specific task (for debugging)
-ansible-playbook -K desktop.yml --start-at-task="task name"
+uv run ansible-playbook -K desktop.yml --start-at-task="task name"
 ```
 
 **Note**: The `-K` flag prompts for sudo password (required for apt operations and system configuration).
@@ -140,7 +135,7 @@ When adding functionality requiring tests:
 3. (Optional) Add `defaults/main.yml` for version variables
 4. (Optional) Add `files/` for configuration files
 5. Enable in `desktop.yml` by adding role to list
-6. Test with: `ansible-playbook -K desktop.yml --tags <tool-name>`
+6. Test with: `uv run ansible-playbook -K desktop.yml --tags <tool-name>`
 
 ## Modifying Configurations
 
