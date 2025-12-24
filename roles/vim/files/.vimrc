@@ -162,6 +162,9 @@ au BufNewFile,BufRead *.json setlocal expandtab tabstop=2 shiftwidth=2 softtabst
 " toogle paste mode
 set pastetoggle=<F2>
 
+" fzf configuration - ignore external package directories
+let $FZF_DEFAULT_COMMAND = 'find . -type f -not -path "*/\.git/*" -not -path "*/node_modules/*" -not -path "*/.venv/*" -not -path "*/venv/*" -not -path "*/vendor/*" -not -path "*/target/*" -not -path "*/dist/*" -not -path "*/build/*" -not -path "*/__pycache__/*" -not -path "*/.tox/*" -not -path "*/.pytest_cache/*" -not -path "*/.mypy_cache/*" -not -path "*/.uv/*" -not -name "*.pyc"'
+
 " fzf mappings
 nnoremap <C-p> :Files<CR>
 nnoremap <leader>f :Files<CR>
