@@ -9,6 +9,6 @@
   apt:
     deb: https://packages.chef.io/files/stable/chef-workstation/{{ chef_version }}/ubuntu/18.04/chef-workstation_{{ chef_version }}-1_amd64.deb
     state: present
-  become: yes
+  become: true
   when: chef_is_installed.rc != 0
 

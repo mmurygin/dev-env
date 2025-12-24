@@ -10,7 +10,7 @@
     url: https://github.com/roboll/helmfile/releases/download/{{ helmfile_version }}/helmfile_linux_amd64
     dest: /usr/local/bin/helmfile
     mode: 0755
-  become: yes
+  become: true
   when: helmfile_is_installed.rc != 0
 
 - name: check if helm diff plugin is installed

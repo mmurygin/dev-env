@@ -11,18 +11,18 @@
       - virt-manager
       - ebtables
       - dnsmasq-base
-  become: True
+  become: true
 
 - name: adding existing user "{{ ansible_user_id }}" to group "libvirt"
   user:
     name: "{{ ansible_user_id }}"
     groups: libvirt,kvm
     append: yes
-  become: True
+  become: true
 
 - name: setup virsh autocomplete
   get_url:
     url: https://raw.githubusercontent.com/LuyaoHuang/virsh-bash-completion/master/virsh_bash_completion
     dest: /etc/bash_completion.d/virsh_completion
     mode: 0664
-  become: True
+  become: true

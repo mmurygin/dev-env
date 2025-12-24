@@ -16,7 +16,7 @@
       - jq
       - shellcheck
       - pipx
-  become: True
+  become: true
 
 - name: ensure pipx path is set
   command: pipx ensurepath
@@ -51,7 +51,7 @@
     value: 524288
     state: present
     reload: yes
-  become: True
+  become: true
 
 - name: setup editor
   lineinfile:

@@ -2,7 +2,7 @@
   apt:
     name: xclip
     state: present
-  become: True
+  become: true
 
 - name: add paste snippet
   lineinfile:

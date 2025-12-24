@@ -3,5 +3,5 @@
   apt:
     name: chrome-gnome-shell
     state: present
-  become: True
+  become: true
 
