@@ -4,6 +4,7 @@
 call plug#begin()
 
 " Usefull utils
+Plug 'preservim/nerdtree'               " File tree explorer
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --go-completer' }
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
@@ -185,6 +186,31 @@ nnoremap <leader>p :bprevious<CR>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
+"------------------------------------------------------------
+" NERDTree Configuration
+"------------------------------------------------------------
+" Toggle NERDTree with Ctrl+n
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Find current file in NERDTree
+nnoremap <leader>nf :NERDTreeFind<CR>
+
+" Show hidden files by ,efault
+let NERDTreeShowHidden=1
+
+" Close vim if only NERDTree is left open
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Ignore common directories and files
+let NERDTreeIgnore=['\.pyc$', '__pycache__', '\.git$', 'node_modules', '\.venv', 'venv', 'vendor', 'target', 'dist', 'build', '\.tox', '\.pytest_cache', '\.mypy_cache', '\.uv']
+
+" Better default width
+let NERDTreeWinSize=35
+
+" Show line numbers in NERDTree
+let NERDTreeShowLineNumbers=1
+let NERDTreeRelativeLineNumbers=1
+
 " Fold/Unfold
 set foldmethod=indent
 set foldlevel=99
@@ -250,7 +276,7 @@ autocmd FileType go nmap <leader>e <Plug>(go-iferr)
 autocmd FileType go nmap <leader>s <Plug>(go-implements)
 autocmd FileType go nmap <leader>cc <Plug>(go-coverage-toggle)
 
-map <C-n> :cnext<CR>
+" map <C-n> :cnext<CR>
 nnoremap <leader>c :cclose<CR>
 nnoremap <C-c> :cclose<CR>
 nnoremap ]q :cnext<CR>
