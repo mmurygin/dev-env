@@ -19,20 +19,8 @@ First, find the correct project folder. Claude Code stores sessions at `~/.claud
 # List available project folders
 ls -la ~/.claude/projects/
 
-# Find the current project's session folder by matching the working directory
-# Example: /Users/harper/src/myproject -> -Users-harper-src-myproject
-CURRENT_PATH=$(pwd | sed 's|^/||; s|/|-|g')
-PROJECT_DIR="$HOME/.claude/projects/-${CURRENT_PATH}"
-
-# Verify it exists
-if [ -d "$PROJECT_DIR" ]; then
-    echo "Found project dir: $PROJECT_DIR"
-    ls -la "$PROJECT_DIR"/*.jsonl 2>/dev/null | head -5
-else
-    echo "No session folder found for current project"
-    echo "Available projects:"
-    ls ~/.claude/projects/
-fi
+# Find the current project's session folder and verify it exists (single line version)
+CURRENT_PATH=$(pwd | sed 's|^/||; s|/|-|g') && PROJECT_DIR="$HOME/.claude/projects/-${CURRENT_PATH}" && echo "Project directory: $PROJECT_DIR" && if [ -d "$PROJECT_DIR" ]; then echo "Found project dir!" && ls -lah "$PROJECT_DIR"/*.jsonl 2>/dev/null | head -5; else echo "No session folder found" && echo "Available projects:" && ls ~/.claude/projects/; fi
 ```
 
 ## Step 2: Generate Session Summary
@@ -42,47 +30,19 @@ fi
 First, verify `jq` is available:
 
 ```bash
-if ! command -v jq &> /dev/null; then
-    echo "ERROR: jq is required but not installed"
-    echo "Install with: brew install jq (macOS) or apt install jq (Linux)"
-    exit 1
-fi
+# Check if jq is installed (single line version)
+command -v jq &> /dev/null || { echo "ERROR: jq is required but not installed. Install with: brew install jq (macOS) or apt install jq (Linux)"; exit 1; }
 ```
 
-Then use jq to generate a 98% token-reduced summary:
+Then use jq to generate a 98% token-reduced summary. **NOTE**: The jq command below must be run as-is (it's multi-line intentionally). Copy the entire block:
 
 ```bash
-# Set project dir (adjust if auto-detection didn't work)
-PROJECT_DIR="$HOME/.claude/projects/-Users-harper-Public-src-2389-matrix-productivity"  # Update this path!
-OUTPUT="/tmp/session-summary.jsonl"
-
-# Optional: Only analyze sessions from last N days
-DAYS_BACK=7
-CUTOFF_DATE=$(date -v-${DAYS_BACK}d +%Y-%m-%d 2>/dev/null || date -d "${DAYS_BACK} days ago" +%Y-%m-%d)
-
-# Summarize: extract user requests, tool names, assistant text (truncated)
-cat "$PROJECT_DIR"/*.jsonl 2>/dev/null | jq -c '
-select(.type == "user" or .type == "assistant") |
-{
-  type,
-  ts: .timestamp,
-  content: (
-    if .message.content | type == "string" then
-      .message.content[0:300]
-    elif .message.content | type == "array" then
-      [.message.content[] |
-        if .type == "text" then {t: "text", v: .text[0:300]}
-        elif .type == "tool_use" then {t: "tool", v: .name}
-        elif .type == "tool_result" then {t: "result", len: (.content | length)}
-        elif .type == "thinking" then empty
-        else {t: .type}
-        end
-      ]
-    else null
-    end
-  )
-}' > "$OUTPUT" 2>/dev/null
-
+# Set variables and run jq summary
+CURRENT_PATH=$(pwd | sed 's|^/||; s|/|-|g') && \
+PROJECT_DIR="$HOME/.claude/projects/-${CURRENT_PATH}" && \
+OUTPUT="/tmp/session-summary.jsonl" && \
+echo "Processing sessions from: $PROJECT_DIR" && \
+cat "$PROJECT_DIR"/*.jsonl 2>/dev/null | jq -c 'select(.type == "user" or .type == "assistant") | {type, ts: .timestamp, content: (if .message.content | type == "string" then .message.content[0:300] elif .message.content | type == "array" then [.message.content[] | if .type == "text" then {t: "text", v: .text[0:300]} elif .type == "tool_use" then {t: "tool", v: .name} elif .type == "tool_result" then {t: "result", len: (.content | length)} elif .type == "thinking" then empty else {t: .type} end] else null end)}' > "$OUTPUT" 2>/dev/null && \
 echo "Summary: $(wc -l < "$OUTPUT") messages, $(wc -c < "$OUTPUT" | xargs) bytes"
 ```
 
