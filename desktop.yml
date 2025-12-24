@@ -4,43 +4,62 @@
   hosts: localhost
   roles:
     # UI
-    # - chrome
-    # - gnome-shell
+    # - role: chrome
+    #   tags: chrome
+    # - role: gnome-shell
+    #   tags: gnome-shell
 
     # languages
-    - go
+    - role: go
+      tags: go
 
     - role: dev
       tags: dev
-    - xclip
-    - cron-update-packages
+    - role: xclip
+      tags: xclip
+    - role: cron-update-packages
+      tags: cron-update-packages
 
     # autocomplete (requires golang)
-    # - fzf
+    # - role: fzf
+    #   tags: fzf
 
     # editors
-    - vim
-    - tmux
+    - role: tmux
+      tags: tmux
+    - role: vim
+      tags: vim
     - role: windsurf
       tags: windsurf
     - role: claude
       tags: claude
 
     # virtualization
-    # - kvm
-    # - virtualbox
+    # - role: kvm
+    #   tags: kvm
+    # - role: virtualbox
+    #   tags: virtualbox
 
 
     # kubernetes
-    - kube-client
-    # - k9s
-    # - helm-client
-    # - helmfile
+    - role: kube-client
+      tags: kube-client
+    # - role: k9s
+    #   tags: k9s
+    # - role: helm-client
+    #   tags: helm-client
+    # - role: helmfile
+    #   tags: helmfile
 
     # devops
-    # - vagrant
-    # - terraform
-    # - vault
-    # - packer
-    # - chef
+    # - role: vagrant
+    #   tags: vagrant
+    # - role: terraform
+    #   tags: terraform
+    # - role: vault
+    #   tags: vault
+    # - role: packer
+    #   tags: packer
+    # - role: chef
+    #   tags: chef
 
