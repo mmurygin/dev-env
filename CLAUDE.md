@@ -1,10 +1,43 @@
-# CLAUDE.md
+# Project Documentation
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance for AI agents and developers working with code in this repository.
 
 ## Repository Purpose
 
 Ansible-based infrastructure-as-code project that automates provisioning of an Ubuntu desktop development environment. Enables reproducible workstation setup through modular, reusable roles.
+
+## Repository Structure
+
+```
+dev-env/
+├── desktop.yml          # Main Ansible playbook
+├── requirements.txt     # Python dependencies (ansible)
+├── CLAUDE.md           # This file - project documentation
+├── roles/              # Ansible roles for each tool/component
+│   ├── dev/            # Core dev packages (build-essential, jq, pipx, yamllint)
+│   ├── vim/            # Vim editor with plugins and configs
+│   ├── tmux/           # Tmux terminal multiplexer + tmuxinator
+│   ├── go/             # Go language with golangci-lint and shfmt
+│   ├── windsurf/       # AI-powered IDE with custom agent rules
+│   ├── claude/         # Claude CLI configuration
+│   ├── kube-client/    # kubectl and kubectx
+│   ├── chrome/         # Google Chrome browser
+│   ├── gnome-shell/    # GNOME desktop extensions
+│   ├── fzf/            # Fuzzy finder
+│   ├── k9s/            # Kubernetes TUI
+│   ├── helm-client/    # Helm package manager
+│   ├── helmfile/       # Helmfile for declarative Helm
+│   ├── terraform/      # Terraform IaC
+│   ├── vault/          # HashiCorp Vault
+│   ├── packer/         # HashiCorp Packer
+│   ├── vagrant/        # Vagrant VM management
+│   ├── kvm/            # KVM virtualization
+│   ├── virtualbox/     # VirtualBox
+│   ├── chef/           # Chef configuration management
+│   ├── xclip/          # Clipboard utility
+│   └── cron-update-packages/  # Auto-update packages via cron
+└── README.md           # Setup instructions
+```
 
 ## Essential Commands
 
@@ -41,7 +74,7 @@ roles/<name>/
 
 ### Role Activation
 
-Roles are enabled/disabled in `desktop.yml` by commenting/uncommenting. Currently active roles: go, dev, xclip, cron-update-packages, vim, tmux, windsurf, kube-client.
+Roles are enabled/disabled in `desktop.yml` by commenting/uncommenting. Currently active roles: go, dev, xclip, cron-update-packages, vim, tmux, windsurf, claude, kube-client.
 
 ### Common Patterns in Roles
 
@@ -128,25 +161,28 @@ When adding functionality requiring tests:
 3. **Error verification**: Check exception type and message
 4. **External dependencies**: Mock failures, test retry/fallback logic
 
-## Adding New Tools
+## Working with Roles
+
+### Adding New Tools
 
 1. Create role directory: `roles/<tool-name>/`
 2. Add `tasks/main.yml` with installation steps
 3. (Optional) Add `defaults/main.yml` for version variables
 4. (Optional) Add `files/` for configuration files
-5. Enable in `desktop.yml` by adding role to list
+5. Enable in `desktop.yml` by adding role to list with tag
 6. Test with: `uv run ansible-playbook -K desktop.yml --tags <tool-name>`
 
-## Modifying Configurations
+### Modifying Configurations
 
 - **Vim**: Edit `roles/vim/files/.vimrc`
 - **Tmux**: Edit `roles/tmux/files/.tmux.conf`
 - **Windsurf**: Edit `roles/windsurf/files/settings.json` or `keybindings.json`
 - **Shell aliases**: Modify loop in `roles/dev/tasks/main.yml`
+- **Yamllint**: Edit `roles/dev/files/.yamllint`
 
 Changes take effect on next playbook run or by sourcing updated files manually.
 
-## Key Roles Overview
+### Key Roles Overview
 
 - **dev**: Core development packages (build-essential, python3-pip, jq, shellcheck), Python tools via pipx (ruff, black, mypy, yamllint), bash aliases (`va`, `p3`, `sg`)
 - **go**: Go language (1.25.5) with golangci-lint and shfmt
@@ -154,3 +190,11 @@ Changes take effect on next playbook run or by sourcing updated files manually.
 - **windsurf**: AI-powered IDE with custom agent rules in `roles/windsurf/files/rules/`
 - **kube-client**: kubectl + kubectx with bash completions
 - **terraform/vault/packer**: Infrastructure tools with pinned versions
+
+## Notes for AI Agents
+
+- Roles commented out in `desktop.yml` are disabled — uncomment to enable
+- Most roles use `become: true` for apt operations (requires sudo)
+- Config files are symlinked from `roles/<name>/files/` to home directory
+- The `dev` role sets up common environment: `EDITOR=vim`, bash aliases like `va`, `sg`
+- All roles in `desktop.yml` now have matching tags for selective execution
