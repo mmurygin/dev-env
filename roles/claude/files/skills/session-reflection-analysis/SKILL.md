@@ -15,35 +15,71 @@ This skill helps identify patterns of inefficiency in Claude Code sessions by an
 
 First, find the correct project folder. Claude Code stores sessions at `~/.claude/projects/` with folder names derived from the project path (slashes become dashes, colons become double-dashes).
 
+**IMPORTANT**: When using the Bash tool, run each command separately (not all at once) to avoid syntax errors with command substitution.
+
 ```bash
 # List available project folders
 ls -la ~/.claude/projects/
+```
 
-# Find the current project's session folder and verify it exists (single line version)
-CURRENT_PATH=$(pwd | sed 's|^/||; s|/|-|g') && PROJECT_DIR="$HOME/.claude/projects/-${CURRENT_PATH}" && echo "Project directory: $PROJECT_DIR" && if [ -d "$PROJECT_DIR" ]; then echo "Found project dir!" && ls -lah "$PROJECT_DIR"/*.jsonl 2>/dev/null | head -5; else echo "No session folder found" && echo "Available projects:" && ls ~/.claude/projects/; fi
+```bash
+# Find the current project's session folder
+PROJ_PATH=$(pwd | sed 's|^/||; s|/|-|g')
+PROJECT_DIR="$HOME/.claude/projects/-${PROJ_PATH}"
+echo "Project directory: $PROJECT_DIR"
+```
+
+```bash
+# Check if directory exists and list sessions
+if [ -d "$PROJECT_DIR" ]; then
+  echo "Found project dir!"
+  ls -lah "$PROJECT_DIR"/*.jsonl 2>/dev/null | head -5
+else
+  echo "No session folder found"
+  echo "Available projects:"
+  ls ~/.claude/projects/
+fi
 ```
 
 ## Step 2: Generate Session Summary
 
 **CRITICAL**: Do NOT read raw session files directly. They are massive and will consume your entire token budget.
 
-First, verify `jq` is available:
+### Recommended: Use the Helper Script
+
+The simplest and most reliable approach is to use the provided helper script:
 
 ```bash
-# Check if jq is installed (single line version)
-command -v jq &> /dev/null || { echo "ERROR: jq is required but not installed. Install with: brew install jq (macOS) or apt install jq (Linux)"; exit 1; }
+bash ~/.claude/skills/session-reflection-analysis/analyze.sh
 ```
 
-Then use jq to generate a 98% token-reduced summary. **NOTE**: The jq command below must be run as-is (it's multi-line intentionally). Copy the entire block:
+This script handles all steps automatically: verifies jq is installed, finds the project directory, generates the summary, and displays statistics.
+
+### Alternative: Manual Steps
+
+If you need to run the steps manually, use the helper script's source code as a reference, or save the commands to a temporary script file and execute it:
 
 ```bash
-# Set variables and run jq summary
-CURRENT_PATH=$(pwd | sed 's|^/||; s|/|-|g') && \
-PROJECT_DIR="$HOME/.claude/projects/-${CURRENT_PATH}" && \
-OUTPUT="/tmp/session-summary.jsonl" && \
-echo "Processing sessions from: $PROJECT_DIR" && \
-cat "$PROJECT_DIR"/*.jsonl 2>/dev/null | jq -c 'select(.type == "user" or .type == "assistant") | {type, ts: .timestamp, content: (if .message.content | type == "string" then .message.content[0:300] elif .message.content | type == "array" then [.message.content[] | if .type == "text" then {t: "text", v: .text[0:300]} elif .type == "tool_use" then {t: "tool", v: .name} elif .type == "tool_result" then {t: "result", len: (.content | length)} elif .type == "thinking" then empty else {t: .type} end] else null end)}' > "$OUTPUT" 2>/dev/null && \
+cat > /tmp/analyze-session.sh << 'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJ_PATH=$(pwd | sed 's|^/||; s|/|-|g')
+PROJECT_DIR="$HOME/.claude/projects/-${PROJ_PATH}"
+OUTPUT="/tmp/session-summary.jsonl"
+
+if ! command -v jq &> /dev/null; then
+  echo "ERROR: jq is required"
+  exit 1
+fi
+
+echo "Processing sessions from: $PROJECT_DIR"
+cat "$PROJECT_DIR"/*.jsonl 2>/dev/null | jq -c 'select(.type == "user" or .type == "assistant") | {type, ts: .timestamp, content: (if .message.content | type == "string" then .message.content[0:300] elif .message.content | type == "array" then [.message.content[] | if .type == "text" then {t: "text", v: .text[0:300]} elif .type == "tool_use" then {t: "tool", v: .name} elif .type == "tool_result" then {t: "result", len: (.content | length)} elif .type == "thinking" then empty else {t: .type} end] else null end)}' > "$OUTPUT" 2>/dev/null
+
 echo "Summary: $(wc -l < "$OUTPUT") messages, $(wc -c < "$OUTPUT" | xargs) bytes"
+EOF
+
+bash /tmp/analyze-session.sh
 ```
 
 This extracts:
@@ -60,6 +96,15 @@ Use the Task tool to spawn an analysis subagent:
 Task tool parameters:
 - subagent_type: "Explore"
 - prompt: |
+    CRITICAL CONSTRAINT: Your total response must be under 20,000 tokens.
+
+    Analysis approach:
+    1. Sample the session data (don't analyze every message)
+    2. Focus on HIGH and MEDIUM priority issues only
+    3. Limit to TOP 5 most impactful problems
+    4. Use concise examples (2-3 lines max per example)
+    5. Keep proposed solutions brief but actionable
+
     Analyze the session summary at /tmp/session-summary.jsonl for inefficiency patterns.
 
     Read the file and look for these patterns:
@@ -86,6 +131,14 @@ Task tool parameters:
     Make all proposals copy-paste ready with complete text/code.
     Quantify impact where possible (tokens saved, time saved).
     Be specific with examples from the actual session data.
+
+    Output format requirements:
+    - Maximum 5 issues total
+    - Each issue description: max 100 words
+    - Each proposed solution: max 200 words
+    - Total reflection document: target 15,000 tokens, hard limit 20,000 tokens
+
+    If you exceed these limits, prioritize ruthlessly - keep only the highest-impact findings.
 ```
 
 ## Step 4: Create Reflection Document
