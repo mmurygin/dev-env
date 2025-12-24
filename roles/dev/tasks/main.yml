@@ -39,6 +39,12 @@
   args:
     creates: ~/.local/bin/ast-grep
 
+- name: create a symlink for yamllint config
+  file:
+    src: "{{ role_path }}/files/.yamllint"
+    dest: ~/.yamllint
+    state: link
+
 - name: setup filewatchers configs
   sysctl:
     name: fs.inotify.max_user_watches
