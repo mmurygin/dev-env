@@ -1,4 +1,10 @@
 ---
+- name: install ripgrep
+  apt:
+    name: ripgrep
+    state: present
+  become: true
+
 - name: ensure .claude directory exists
   file:
     path: ~/.claude
