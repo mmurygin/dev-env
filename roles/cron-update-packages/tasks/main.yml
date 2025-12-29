@@ -4,5 +4,5 @@
     dest: /etc/cron.daily/update-packages
     owner: root
     group: root
-    mode: 0744
+    mode: 0755
   become: true
