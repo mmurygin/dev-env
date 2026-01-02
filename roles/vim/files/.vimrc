@@ -71,7 +71,6 @@ set incsearch                   " Shows the match while typing
 set hlsearch                    " Highlight found searches
 set noerrorbells                " No beeps
 set number                      " Show line numbers
-set relativenumber              " Relative line numbers for easier motion
 set showcmd                     " Show me what I'm typing
 set noswapfile                  " Don't use swapfile
 set nobackup                    " Don't create annoying backup files
@@ -205,11 +204,11 @@ autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTa
 let NERDTreeIgnore=['\.pyc$', '__pycache__', '\.git$', 'node_modules', '\.venv', 'venv', 'vendor', 'target', 'dist', 'build', '\.tox', '\.pytest_cache', '\.mypy_cache', '\.uv']
 
 " Better default width
-let NERDTreeWinSize=35
+let NERDTreeWinSize=25
 
 " Show line numbers in NERDTree
-let NERDTreeShowLineNumbers=1
-let NERDTreeRelativeLineNumbers=1
+let NERDTreeShowLineNumbers=0
+let NERDTreeRelativeLineNumbers=0
 
 " Fold/Unfold
 set foldmethod=indent
