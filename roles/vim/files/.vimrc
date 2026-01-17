@@ -263,12 +263,12 @@ let g:go_referrers_mode = 'gopls'
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " keyboard shortcuts
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>r <Plug>(go-rename)
+autocmd FileType go nmap gr <Plug>(go-rename)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
 autocmd FileType go nmap <leader>i  <Plug>(go-import)
 autocmd FileType go nmap <leader>a <Plug>(go-alternate-edit)
 autocmd FileType go nmap <leader>d <Plug>(go-def)
-autocmd FileType go nmap gr <Plug>(go-rename)
 autocmd FileType go nmap gD <Plug>(go-def-stack)
 autocmd FileType go nmap <leader>v <Plug>(go-def-vertical)
 autocmd FileType go nmap <leader>e <Plug>(go-iferr)
@@ -331,7 +331,8 @@ set completeopt-=preview
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal textwidth=88
 autocmd FileType python setlocal colorcolumn=88
-autocmd FileType python nnoremap <buffer> <leader>r :!python3 %<CR>
+autocmd FileType python nnoremap <buffer> <leader>r :YcmCompleter RefactorRename<Space>
+autocmd FileType python nnoremap <buffer> gr :YcmCompleter RefactorRename<Space>
 autocmd FileType python nnoremap <buffer> <leader>t :!python3 -m pytest %<CR>
 
 let g:ale_python_ruff_options = '--line-length=88'
