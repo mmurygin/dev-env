@@ -5,7 +5,7 @@ call plug#begin()
 
 " Usefull utils
 Plug 'preservim/nerdtree'               " File tree explorer
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --go-completer' }
+Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -310,12 +310,24 @@ au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 "------------------------------------------------------------
 " Autocompletion + snippets
 "------------------------------------------------------------
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-m>', '<Up>']
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_auto_hover = ''
+" jedi-vim configuration
+let g:jedi#completions_enabled = 1
+let g:jedi#popup_on_dot = 1
+let g:jedi#show_call_signatures = 1
+let g:jedi#use_tabs_not_buffers = 0
+
+" jedi-vim shortcuts (defaults, listed for reference)
+" <leader>d - go to definition
+" <leader>g - go to assignment
+" <leader>r - rename (default)
+" <leader>n - show usages
+" K - show documentation
+
+" Add gr as alias for rename
+let g:jedi#rename_command = '<leader>r'
+autocmd FileType python nmap <buffer> gr <leader>r
+
+" SuperTab configuration for completion
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
@@ -331,8 +343,6 @@ set completeopt-=preview
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal textwidth=88
 autocmd FileType python setlocal colorcolumn=88
-autocmd FileType python nnoremap <buffer> <leader>r :YcmCompleter RefactorRename<Space>
-autocmd FileType python nnoremap <buffer> gr :YcmCompleter RefactorRename<Space>
 autocmd FileType python nnoremap <buffer> <leader>t :!python3 -m pytest %<CR>
 
 let g:ale_python_ruff_options = '--line-length=88'
