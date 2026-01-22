@@ -29,7 +29,14 @@
 1. Install uv
 
     ```bash
-    pip install uv
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+
+1. Download packages
+
+    ```bash
+    uv sync
+    curl -LsSf https://astral.sh/uv/install.sh | sh
     ```
 
 1. Provision development pc
