@@ -45,6 +45,9 @@ Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlig
 " node
 Plug 'moll/vim-node'
 
+" Java
+Plug 'uiiaoo/java-syntax.vim'
+
 " Other
 Plug 'rodjek/vim-puppet'
 
@@ -352,6 +355,7 @@ let g:ale_warn_about_trailing_whitespace = 0
 
 let g:ale_linters = {
 \   'go': ['golangci-lint'],
+\   'java': ['javac'],
 \   'python': ['ruff', 'mypy'],
 \   'sh': ['shellcheck'],
 \   'bash': ['shellcheck'],
@@ -359,6 +363,7 @@ let g:ale_linters = {
 \}
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'java': ['google_java_format'],
 \   'python': ['ruff', 'isort', 'black'],
 \   'go': ['goimports'],
 \   'sh': ['shfmt'],
@@ -411,6 +416,13 @@ autocmd FileType sh,bash nnoremap <buffer> <leader>r :!bash %<CR>
 let g:ale_sh_shellcheck_options = '-x -e SC1091'
 " shfmt: indent=2, binary ops may start a line, indent switch cases
 let g:ale_sh_shfmt_options = '-i 2 -bn -ci'
+
+"------------------------------------------------------------
+" Java
+"------------------------------------------------------------
+autocmd FileType java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType java setlocal textwidth=100
+autocmd FileType java setlocal colorcolumn=100
 
 "------------------------------------------------------------
 " Terraform
