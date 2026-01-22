@@ -5,9 +5,9 @@
     state: present
   become: true
 
-- name: install vim-gtk for copy between terminals
+- name: install vim-gtk3 for clipboard support
   apt:
-    name: vim-gtk
+    name: vim-gtk3
     state: present
   become: true
 
