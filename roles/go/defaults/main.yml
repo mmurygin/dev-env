@@ -1,4 +1,4 @@
 ---
 go_version: 1.25.5
-go_path: ~/go
+go_path: $HOME/go
 go_install_base_dir: /usr/local
