@@ -1,13 +1,9 @@
 ---
-- name: check if tmux is installed
-  shell: which tmux && tmux -V | grep "tmux {{ tmux_version }}"
-  register: tmux_is_installed
-  failed_when: false
-  changed_when: false
-
-- name: include install tmux tasks when tmux is not installed
-  include_tasks: install.yml
-  when: tmux_is_installed.rc != 0
+- name: install tmux
+  apt:
+    name: tmux
+    state: present
+  become: true
 
 - name: create a simlink for configs
   file:
