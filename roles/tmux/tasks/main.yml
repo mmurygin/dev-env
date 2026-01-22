@@ -9,18 +9,6 @@
   include_tasks: install.yml
   when: tmux_is_installed.rc != 0
 
-- name: install tmuxinator
-  gem:
-    name: tmuxinator
-    state: present
-    user_install: true
-
-- name: setup tmuxinator autocomplete
-  get_url:
-    url: https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.bash
-    dest: /etc/bash_completion.d/tmuxinator.bash
-  become: true
-
 - name: create a simlink for configs
   file:
     src: "{{ role_path }}/files/.tmux.conf"
