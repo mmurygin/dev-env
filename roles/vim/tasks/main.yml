@@ -17,6 +17,12 @@
     dest: ~/.vimrc
     state: link
 
+- name: create vim spell directory
+  file:
+    path: ~/.vim/spell
+    state: directory
+    mode: '0755'
+
 - name: create a simlink for spell check dictionary
   file:
     src: "{{ role_path }}/files/.vim/spell/en.utf-8.add"

@@ -35,6 +35,8 @@
       tags: claude
 
     # virtualization
+    - role: docker
+      tags: docker
     # - role: kvm
     #   tags: kvm
     # - role: virtualbox

@@ -76,3 +76,7 @@
     - "alias pd3=pydoc3"
     - "alias ptree='tree -I __pycache__'"
     - "alias mg='grep --exclude-dir .git --exclude-dir .venv -R'"
+
+- name: remap caps lock to escape
+  shell: gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
+  changed_when: false
