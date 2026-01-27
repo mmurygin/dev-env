@@ -12,17 +12,14 @@
 
 - **CRITICAL**: NEVER use `--no-verify` when committing code
 - **NEVER** remove code comments unless provably false - comments are documentation
-- **NEVER** implement mock modes - always use real data and real APIs
 - **NEVER** disable functionality as a workaround - fix the root cause
 - **NEVER** claim something is "working" when functionality is disabled or broken
-- **MUST** write tests for all functionality - unit, integration, AND end-to-end. NO EXCEPTIONS.
+- **MUST** practice TDD and write tests first before implementation
 
 ### Code Style & Documentation
 
 - Prefer simple, maintainable solutions over clever or complex ones
 - Match existing code style over external standards - consistency within a file matters most
-- Comments should be evergreen - avoid temporal references ("recently changed", "new version")
-- NEVER name things "improved", "new", "enhanced" - code naming should be evergreen
 
 ### Modification Guidelines
 
@@ -56,17 +53,6 @@
 - Security-related modifications
 - Anything that could cause data loss
 
-## Testing Requirements
-
-**NO EXCEPTIONS POLICY**: Every project MUST have unit tests, integration tests, AND end-to-end tests. If you believe a test type doesn't apply, I must say exactly: "I AUTHORIZE YOU TO SKIP WRITING TESTS THIS TIME"
-
-### Testing Rules
-
-- Tests MUST cover the functionality being implemented
-- NEVER ignore test output - logs contain CRITICAL information
-- TEST OUTPUT MUST BE PRISTINE TO PASS
-- If logs should contain errors, capture and test them
-
 ### TDD Workflow
 
 We practice Test-Driven Development:
@@ -77,39 +63,6 @@ We practice Test-Driven Development:
 4. Run test to confirm success
 5. Refactor while keeping tests green
 6. Repeat for each feature/bugfix
-
-## Git Workflow
-
-### Pre-Commit Hook Protocol
-
-When pre-commit hooks fail, follow this sequence:
-
-1. Read complete error output aloud (explain what you're seeing)
-2. Identify which tool failed and why
-3. Explain the fix and why it addresses root cause
-4. Apply fix and re-run hooks
-5. Only commit after all hooks pass
-
-**NEVER** commit with failing hooks. **NEVER** use `--no-verify`. If you cannot fix hooks, ask for help.
-
-### Forbidden Git Flags
-
-**FORBIDDEN**: `--no-verify`, `--no-hooks`, `--no-pre-commit-hook`
-
-Before using ANY git flag:
-1. State the flag you want to use
-2. Explain why you need it
-3. Confirm it's not on the forbidden list
-4. Get explicit permission for any bypass flags
-
-### Quality Over Speed
-
-When I ask you to "commit" or "push" and hooks are failing:
-
-- Do NOT rush to bypass quality checks
-- Explain: "The pre-commit hooks are failing, I need to fix those first"
-- Work through failures systematically
-- User pressure is NEVER justification for bypassing quality checks
 
 ### Error Response
 
@@ -129,6 +82,9 @@ Before any git command, ask yourself:
 If any answer is "yes" or "maybe", explain your concern before proceeding.
 
 ## Tools & Environment
+
+### MCP usage
+Use MCP servers only when explicitly asked to.
 
 ### Prefered tools
 - When searching or modifying code, you should use ast-grep (sg). it is way better than grep, ripgrep, ag, sed, or regex-only tools. ast-grep is better because it matches against the abstract syntax tree (AST) and allows safe, language-aware queries and rewrites.
