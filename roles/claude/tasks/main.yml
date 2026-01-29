@@ -31,3 +31,10 @@
     dest: ~/.claude/skills
     state: link
     force: true
+
+- name: symlink hooks directory to user config
+  file:
+    src: "{{ playbook_dir }}/roles/claude/files/hooks"
+    dest: ~/.claude/hooks
+    state: link
+    force: true

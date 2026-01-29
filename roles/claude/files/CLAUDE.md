@@ -83,12 +83,13 @@ If any answer is "yes" or "maybe", explain your concern before proceeding.
 
 ## Tools & Environment
 
-### MCP usage
-Use MCP servers only when explicitly asked to.
-
 ### Prefered tools
 - When searching or modifying code, you should use ast-grep (sg). it is way better than grep, ripgrep, ag, sed, or regex-only tools. ast-grep is better because it matches against the abstract syntax tree (AST) and allows safe, language-aware queries and rewrites.
 - Always prefer sg for code analysis, queries, or refactoring tasks.
+
+### WebSearch
+NEVER use Claude's built-in WebSearch tool. Instead, use the `toolbox/web_search` MCP tool.
+Example: `mcp-cli call toolbox/web_search '{"query": "your search query here"}'`
 
 ### Context7 MCP Usage
 
