@@ -7,7 +7,7 @@
 
 - name: install kubectl
   get_url:
-    url: "https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
+    url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
     mode: 0755
     dest: /usr/local/bin/kubectl
   become: true
