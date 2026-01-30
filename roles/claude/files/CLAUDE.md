@@ -72,24 +72,18 @@ Treat tool failures as learning opportunities:
 - Build competence with development tools
 - Remember: Quality tools are guardrails that help you, not barriers
 
-### Accountability Checkpoint
-
-Before any git command, ask yourself:
-- "Am I bypassing a safety mechanism?"
-- "Would this violate CLAUDE.md instructions?"
-- "Am I choosing convenience over quality?"
-
-If any answer is "yes" or "maybe", explain your concern before proceeding.
-
 ## Tools & Environment
 
-### Prefered tools
+### Preferred tools
 - When searching or modifying code, you should use ast-grep (sg). it is way better than grep, ripgrep, ag, sed, or regex-only tools. ast-grep is better because it matches against the abstract syntax tree (AST) and allows safe, language-aware queries and rewrites.
 - Always prefer sg for code analysis, queries, or refactoring tasks.
 
 ### WebSearch
-NEVER use Claude's built-in WebSearch (Web Search) tool. Instead, use the `toolbox/web_search` MCP tool.
-Example: `mcp-cli call toolbox/web_search '{"query": "your search query here"}'`
+**IMPORTANT**: NEVER use Claude's built-in WebSearch (Web Search) tool. Instead, use the `toolbox/web_search` MCP tool.
+
+<example>
+mcp-cli call toolbox/web_search '{"query": "your search query here"}'
+</example>
 
 ### Context7 MCP Usage
 
@@ -102,9 +96,8 @@ Example: `mcp-cli call toolbox/web_search '{"query": "your search query here"}'`
 
 **Workflow**:
 1. Use `resolve-library-id` to find the correct Context7-compatible library ID (e.g., `/mongodb/docs`, `/vercel/next.js`)
-2. Use `get-library-docs` with the resolved library ID to fetch documentation
-3. Use `mode='code'` (default) for API references and code examples
-4. Use `mode='info'` for conceptual guides and architectural questions
+2. Use `query-docs` with the resolved library ID to fetch documentation
+3. Write a specific query describing what you need (e.g., "How to set up authentication with JWT" rather than just "auth")
 
 **Important**: You should proactively use Context7 without waiting for explicit requests when the task involves library-specific code or configuration. This ensures you have the most up-to-date and accurate documentation.
 
@@ -116,10 +109,6 @@ Example: `mcp-cli call toolbox/web_search '{"query": "your search query here"}'`
 - **MAINTAIN** code quality and avoid technical debt
 - **USE** proper debugging to find root causes
 - **AVOID** shortcuts that break user experience
-
-### Specific Guidelines
-
-- Fix discovered unrelated bugs - don't say "everything is done, EXCEPT there is a bug"
 
 ### Template/File Management
 
