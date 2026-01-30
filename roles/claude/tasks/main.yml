@@ -38,3 +38,9 @@
     dest: ~/.claude/hooks
     state: link
     force: true
+
+- name: add dclaude alias
+  lineinfile:
+    path: ~/.bashrc
+    state: present
+    line: "alias dclaude='claude --dangerously-skip-permissions'"

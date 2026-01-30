@@ -88,7 +88,7 @@ If any answer is "yes" or "maybe", explain your concern before proceeding.
 - Always prefer sg for code analysis, queries, or refactoring tasks.
 
 ### WebSearch
-NEVER use Claude's built-in WebSearch tool. Instead, use the `toolbox/web_search` MCP tool.
+NEVER use Claude's built-in WebSearch (Web Search) tool. Instead, use the `toolbox/web_search` MCP tool.
 Example: `mcp-cli call toolbox/web_search '{"query": "your search query here"}'`
 
 ### Context7 MCP Usage
