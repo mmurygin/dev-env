@@ -136,7 +136,7 @@ set confirm
 
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
-set ruler
+" set ruler
 
 " set leader to ,
 let mapleader = ','
@@ -355,7 +355,7 @@ let g:ale_warn_about_trailing_whitespace = 0
 
 let g:ale_linters = {
 \   'go': ['golangci-lint'],
-\   'java': ['javac'],
+\   'java': ['eclipselsp'],
 \   'python': ['ruff', 'mypy'],
 \   'sh': ['shellcheck'],
 \   'bash': ['shellcheck'],
@@ -423,6 +423,9 @@ let g:ale_sh_shfmt_options = '-i 2 -bn -ci'
 autocmd FileType java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType java setlocal textwidth=100
 autocmd FileType java setlocal colorcolumn=100
+
+" Eclipse JDT Language Server (jdtls) path for ALE
+let g:ale_java_eclipselsp_path = $HOME . '/.local/share/jdtls'
 
 "------------------------------------------------------------
 " Terraform
