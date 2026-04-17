@@ -31,8 +31,6 @@
       tags: vim
     - role: windsurf
       tags: windsurf
-    - role: claude
-      tags: claude
 
     # virtualization
     - role: docker
