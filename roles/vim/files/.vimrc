@@ -12,7 +12,8 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'            " gcc to comment line, gc in visual
 Plug 'airblade/vim-gitgutter'           " Git diff in gutter
-Plug 'tpope/vim-fugitive'               " Git commands in vim
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 
 " Styles
 Plug 'mhartington/oceanic-next'
@@ -302,7 +303,6 @@ let g:go_metalinter_enabled = []
 let g:go_metalinter_autosave = 0
 let g:go_metalinter_command = ''
 
-let g:ale_go_golangci_lint_options = '-e=ST1008'
 let g:ale_go_golangci_lint_package = 1
 
 let g:go_fmt_command = "goimports"
@@ -331,7 +331,9 @@ let g:jedi#rename_command = '<leader>r'
 autocmd FileType python nmap <buffer> gr <leader>r
 
 " SuperTab configuration for completion
-let g:SuperTabDefaultCompletionType = '<C-n>'
+" 'context' lets Tab use gopls omni-completion in Go files (and other LSP-backed
+" filetypes) instead of plain keyword completion.
+let g:SuperTabDefaultCompletionType = 'context'
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -365,7 +367,6 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'java': ['google_java_format'],
 \   'python': ['ruff', 'isort', 'black'],
-\   'go': ['goimports'],
 \   'sh': ['shfmt'],
 \   'bash': ['shfmt'],
 \}
