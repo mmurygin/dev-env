@@ -1,6 +1,11 @@
 "------------------------------------------------------------
 " Plugins
 "------------------------------------------------------------
+" Enable ALE's async, as-you-type completion. This MUST be set before ALE is
+" loaded (before the plug#begin/plug#end block below), otherwise ALE never
+" registers the completion autocmds.
+let g:ale_completion_enabled = 1
+
 call plug#begin()
 
 " Usefull utils
@@ -341,6 +346,16 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 set completeopt-=preview
 
+" Ctrl+Space -> omni-completion via the buffer's omnifunc (gopls for Go,
+" jedi for Python, etc.). If the popup is already open, keep moving down it
+" instead of re-triggering. Terminal Vim delivers Ctrl+Space as <C-@> (NUL);
+" GVim/MacVim send <C-Space> literally, so map both.
+if has("gui_running")
+  inoremap <expr> <C-Space> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
+else
+  inoremap <expr> <C-@> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
+endif
+
 
 "------------------------------------------------------------
 " Python
@@ -356,7 +371,7 @@ let g:ale_warn_about_trailing_whitespace = 0
 
 
 let g:ale_linters = {
-\   'go': ['golangci-lint'],
+\   'go': ['golangci-lint', 'gopls'],
 \   'java': ['eclipselsp'],
 \   'python': ['ruff', 'mypy'],
 \   'sh': ['shellcheck'],
