@@ -470,9 +470,6 @@ autocmd BufRead,BufNewFile *.hcl set filetype=terraform
 " Puppet formatting
 function! FormatCode()
   let file = expand('%:p')
-  if !filewritable(file)
-    return
-  endif
   noautocmd write
   let script_file =
         \ system('git rev-parse --show-toplevel')[:-2] .
