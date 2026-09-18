@@ -307,6 +307,44 @@ let g:ale_go_golangci_lint_package = 1
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 
+
+"------------------------------------------------------------
+" Quickfix window height for :GoImplements, :GoReferrers, etc.
+"------------------------------------------------------------
+" vim-go has no max-height option: g:go_list_height is a fixed height, and its
+" default (0) fits the window to the item count but hardcodes a 10-line cap.
+" So keep the fit-to-content behaviour and raise the cap to 20 ourselves.
+let g:go_list_height = 0
+
+" Number of screen rows the quickfix list needs, capped at a:max. Entries wider
+" than the window wrap onto extra rows, so counting buffer lines is not enough:
+" the text area is winwidth() minus 'textoff' (the number + sign columns).
+function! s:QuickfixHeight(max) abort
+  if !&wrap
+    return min([line('$'), a:max])
+  endif
+  let l:width = winwidth(0) - getwininfo(win_getid())[0].textoff
+  if l:width < 1
+    return min([line('$'), a:max])
+  endif
+  let l:rows = 0
+  for l:lnum in range(1, line('$'))
+    let l:rows += max([1, (strdisplaywidth(getline(l:lnum)) + l:width - 1) / l:width])
+    if l:rows >= a:max
+      return a:max
+    endif
+  endfor
+  return max([l:rows, 1])
+endfunction
+
+autocmd FileType qf execute 'resize' s:QuickfixHeight(20)
+
+" Don't leave the quickfix list behind when the file it belongs to goes away:
+" closing a normal window closes the quickfix window with it, and a quickfix
+" window that ends up being the last one quits instead of lingering alone.
+autocmd QuitPre * if empty(&buftype) | cclose | endif
+autocmd WinEnter * if winnr('$') == 1 && &buftype ==# 'quickfix' | quit | endif
+
 au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 
 "------------------------------------------------------------
