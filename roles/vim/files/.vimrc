@@ -24,7 +24,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' 
 Plug 'mhartington/oceanic-next'
 
 " Syntax check
-" Plug 'vim-syntastic/syntastic'
 Plug 'dense-analysis/ale'
 
 " Terraform plugins
@@ -109,7 +108,6 @@ set nocursorline                " Do not highlight cursor (speeds up highlightin
 set lazyredraw                  " Wait to redraw
 set updatetime=300              " Faster CursorHold events
 set signcolumn=yes              " Always show sign column
-set mouse=a                     " Enable mouse support
 
 " Enable to copy to clipboard for operations like yank, delete, change and put
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
@@ -139,10 +137,6 @@ set nostartofline
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
 set confirm
-
-" Display the cursor position on the last line of the screen or in the status
-" line of a window
-" set ruler
 
 " set leader to ,
 let mapleader = ','
@@ -203,7 +197,7 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 " Find current file in NERDTree
 nnoremap <leader>nf :NERDTreeFind<CR>
 
-" Show hidden files by ,efault
+" Show hidden files by default
 let NERDTreeShowHidden=1
 
 " Close vim if only NERDTree is left open
@@ -408,21 +402,6 @@ nnoremap <leader>af :ALEFix<CR>
 
 
 "------------------------------------------------------------
-" Syntatic-syntax
-"------------------------------------------------------------
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-"
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 1
-" let g:syntastic_python_checkers = ['python3', 'flake8']
-" let g:syntastic_go_checkers = ['go', 'govet']
-
-
-"------------------------------------------------------------
 " Shell/Bash
 "------------------------------------------------------------
 autocmd FileType sh,bash setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
@@ -463,9 +442,6 @@ let g:terraform_completion_keys = 1
 let g:terraform_registry_module_completion = 1
 autocmd BufWritePre *.tf :TerraformFmt
 autocmd BufRead,BufNewFile *.hcl set filetype=terraform
-
-" Co-author macro - use :let @a = '<paste macro here>' to restore
-" let @a = '0yyp0gu$0:.s/ /./e<CR>0:.s/ \\+//ge<CR>I<C-[>A@booking.com<C-[>kJICo-authored-by: <C-[>07wdt<i <C-[>0:.s/ \\+/ /ge<CR>:noh<CR>06wvU0k'
 
 " Puppet formatting
 function! FormatCode()
