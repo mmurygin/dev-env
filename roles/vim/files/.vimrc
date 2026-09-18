@@ -191,11 +191,11 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 "------------------------------------------------------------
 " NERDTree Configuration
 "------------------------------------------------------------
-" Toggle NERDTree with Ctrl+n
-nnoremap <C-n> :NERDTreeToggle<CR>
+" Toggle NERDTree with Ctrl+t
+nnoremap <C-t> :NERDTreeToggle<CR>
 
 " Find current file in NERDTree
-nnoremap <leader>nf :NERDTreeFind<CR>
+nnoremap <leader>tf :NERDTreeFind<CR>
 
 " Show hidden files by default
 let NERDTreeShowHidden=1
@@ -266,10 +266,10 @@ let g:go_referrers_mode = 'gopls'
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " keyboard shortcuts
-autocmd FileType go nmap <leader>r <Plug>(go-rename)
+autocmd FileType go nmap <leader>r <Plug>(go-referrers)
 autocmd FileType go nmap gr <Plug>(go-rename)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
-autocmd FileType go nmap <leader>i  <Plug>(go-import)
+autocmd FileType go nmap <leader>i  <Plug>(go-implements)
 autocmd FileType go nmap <leader>a <Plug>(go-alternate-edit)
 autocmd FileType go nmap <leader>d <Plug>(go-def)
 autocmd FileType go nmap gD <Plug>(go-def-stack)
@@ -281,8 +281,8 @@ autocmd FileType go nmap <leader>cc <Plug>(go-coverage-toggle)
 " map <C-n> :cnext<CR>
 nnoremap <leader>c :cclose<CR>
 nnoremap <C-c> :cclose<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprevious<CR>
+nnoremap <C-n> :cnext<CR>
+nnoremap <C-m> :cprevious<CR>
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
